@@ -1,0 +1,7 @@
+commerce_trustedshops:
+  path: '/admin/commerce/config/trustedshops'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'TrustedShops'
+  requirements:
+    _permission: 'administer commerce trustedshops'

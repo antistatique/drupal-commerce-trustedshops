@@ -1,0 +1,18 @@
+commerce_trustedshops:
+  title: 'TrustedShops'
+  route_name: 'commerce_trustedshops'
+  parent: 'commerce.configuration'
+
+commerce_trustedshops.trustedshops_ids.collection:
+  title: 'Trusted Shops-IDs'
+  description: 'Manage your Trusted shops IDs by shops & languages.'
+  route_name: 'entity.commerce_trustedshops_shop.collection'
+  parent: 'commerce_trustedshops'
+  weight: -10
+
+commerce_trustedshops.settings:
+  title: 'Settings'
+  description: 'Configure your TrustedShops integration.'
+  route_name: 'commerce_trustedshops.settings'
+  parent: 'commerce_trustedshops'
+  weight: 100

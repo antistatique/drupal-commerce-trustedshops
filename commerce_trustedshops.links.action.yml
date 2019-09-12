@@ -1,0 +1,5 @@
+entity.commerce_trustedshops_shop.add_page:
+  route_name: entity.commerce_trustedshops_shop.add_form
+  title: 'Add TrustedShops-ID'
+  appears_on:
+    - entity.commerce_trustedshops_shop.collection
