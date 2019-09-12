@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * @file
+ * Contains commerce_trustedshops.install.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_install().
+ */
+function commerce_trustedshops_install() {
+  drupal_set_message(t("Commerce TrustedShops is installed and ready for action."));
+
+  // Rebuild the route cache before accessing new route.
+  \Drupal::service("router.builder")->rebuild();
+
+  // Display the new route for configuration.
+  $url = Url::fromRoute('commerce_trustedshops.settings');
+  drupal_set_message(t('Commerce TrustedShops settings are available under <a href="@administer-page">Administer > TBD</a>', ['@administer-page' => $url->toString()]));
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function commerce_trustedshops_requirements($phase) {
+  $requirements = [];
+  if ($phase == 'install') {
+    // Asserts symfony/process is installed.
+    if (!class_exists('Antistatique\TrustedShops\TrustedShops')) {
+      $requirements['commerce_trustedshops_process_component'] = [
+        'description' => t('Commerce TrustedShops requires the <a href=":component-url" target="_blank">TrustedShops PHP SDK</a>. The recommended way of solving this dependency is using <a href=":composer-url" target="_blank">Composer</a> running the following from the command line: <br /><code>composer require antistatique/trustedshops-php-sdk</code>.', [
+          ':component-url' => 'https://symfony.com/doc/current/components/process.html',
+          ':composer-url' => 'https://getcomposer.org',
+        ]),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+
+  $config = \Drupal::config('commerce_trustedshops.settings');
+  if ($phase == 'runtime') {
+    if (empty($config->get('api.user'))) {
+      $requirements['commerce_trustedshops_user'] = [
+        'title' => t('Commerce TrustedShops API Username'),
+        'value' => t('Missing'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('Commerce TrustedShops requires your TrustedShops username. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href=":settings-url">Settings form</a>.', [
+          ':settings-url' => Url::fromRoute('commerce_trustedshops.settings', [], ['fragment' => 'edit-api'])->toString(),
+        ]),
+      ];
+    }
+
+    if (empty($config->get('api.pass'))) {
+      $requirements['commerce_trustedshops_pass'] = [
+        'title' => t('Commerce TrustedShops API Password'),
+        'value' => t('Missing'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('Commerce TrustedShops requires your TrustedShops password. Keep this key secret by adding it in your <code>settings.php</code> or fill the <a href="">Settings form</a>.', [
+          ':settings-url' => Url::fromRoute('commerce_trustedshops.settings', [], ['fragment' => 'edit-api'])->toString(),
+        ]),
+      ];
+    }
+  }
+
+  return $requirements;
+}
