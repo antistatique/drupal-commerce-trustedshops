@@ -1,0 +1,27 @@
+commerce_trustedshops.settings:
+  type: config_object
+  label: 'Commerce TrustedShops settings'
+  mapping:
+    api:
+      type: mapping
+      label: 'API'
+      mapping:
+        user:
+          type: string
+          label: 'TrustedShops API username'
+        pass:
+          type: string
+          label: 'TrustedShops API password'
+
+views.field.order_link_invite_review:
+  type: views.field.field
+  mapping:
+    text:
+      type: label
+      label: 'Text to display'
+    output_url_as_text:
+      type: boolean
+      label: 'Output the URL as text'
+    absolute:
+      type: boolean
+      label: 'Output an absolute link'
