@@ -5,3 +5,20 @@ commerce_trustedshops:
     _title: 'TrustedShops'
   requirements:
     _permission: 'administer commerce trustedshops'
+
+commerce_trustedshops.settings:
+  path: '/admin/commerce/config/trustedshops/settings'
+  defaults:
+    _form: 'Drupal\commerce_trustedshops\Form\SettingsForm'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer commerce trustedshops'
+
+commerce_trustedshops.invite_review_confirm:
+  path: '/admin/commerce/trustedshops/invite_review_confirm/{commerce_order}'
+  defaults:
+    _form: '\Drupal\commerce_trustedshops\Form\InviteReviewForm'
+    _title: 'Send invitation to write a review'
+  requirements:
+    _custom_access: '\Drupal\commerce_trustedshops\Form\InviteReviewForm::access'
+    commerce_order: \d+
