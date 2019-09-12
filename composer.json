@@ -1,0 +1,44 @@
+{
+  "name": "drupal/commerce_trustedshops",
+  "description": "Provides Commerce integration for TrustedShops.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/commerce_trustedshops",
+  "keywords": ["drupal", "commerce", "trustedshops"],
+  "authors": [
+    {
+      "name": "Antistatique SA",
+      "email": "info@antistatique.net",
+      "homepage": "https://antistatique.net",
+      "role": "Sponsor"
+    },
+    {
+      "name": "Kevin Wenger",
+      "email": "contact@kevin-wenger.ch",
+      "homepage": "https://www.drupal.org/u/wengerk",
+      "role": "Author & Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/commerce_trustedshops"
+  },
+  "license": "GPL-2.0-or-later",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "drupal/commerce": "^2.8",
+    "antistatique/trustedshops-php-sdk": "dev-master"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.0.1",
+    "drupal/coder": "^8.3.1",
+    "phpmd/phpmd": "^2.6",
+    "sebastian/phpcpd": "^3.0",
+    "wapmorgan/php-code-fixer": "^2.0"
+  }
+}
