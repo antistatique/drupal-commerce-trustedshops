@@ -1,3 +1,5 @@
 'administer commerce trustedshops':
   title: 'Administer Commerce TrustedShops'
 
+'send invite review commerce trustedshops':
+  title: 'Send invitation to write a review for TrustedShops'
