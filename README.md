@@ -86,12 +86,12 @@ Configure your TrustedShops Credentials - as required by TrustedShops for manual
    *
    * @var string
   */
-  $config['commerce_trustedshops.settings']['api']['user'] = 'john.doe';
+  $config['commerce_trustedshops.settings']['api']['username'] = 'john.doe';
 
   /**
    * TrustedShops password.
    *
    * @var string
   */
-  $config['commerce_trustedshops.settings']['api']['pass'] = 'qwertz';
+  $config['commerce_trustedshops.settings']['api']['password'] = 'qwertz';
   ```
