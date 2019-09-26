@@ -14,8 +14,8 @@ commerce_trustedshops.settings:
   requirements:
     _permission: 'administer commerce trustedshops'
 
-commerce_trustedshops.invite_review_confirm:
-  path: '/admin/commerce/trustedshops/invite_review_confirm/{commerce_order}'
+commerce_trustedshops.commerce_order.invite_review_confirm:
+  path: '/admin/commerce/orders/{commerce_order}/trustedshops/invite_review_confirm'
   defaults:
     _form: '\Drupal\commerce_trustedshops\Form\InviteReviewForm'
     _title: 'Send invitation to write a review'
