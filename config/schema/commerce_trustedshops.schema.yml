@@ -6,10 +6,10 @@ commerce_trustedshops.settings:
       type: mapping
       label: 'API'
       mapping:
-        user:
+        username:
           type: string
           label: 'TrustedShops API username'
-        pass:
+        password:
           type: string
           label: 'TrustedShops API password'
 
