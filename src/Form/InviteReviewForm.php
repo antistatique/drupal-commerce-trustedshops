@@ -5,6 +5,7 @@ namespace Drupal\commerce_trustedshops\Form;
 use Drupal\commerce_trustedshops\Context;
 use Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -96,6 +97,9 @@ class InviteReviewForm extends ConfirmFormBase {
 
     // Confirms the TrustedShops API configurations has been filled.
     if (!$config->get('api.username') || !$config->get('api.password')) {
+      $this->messenger()->addWarning($this->t('Please configure your <a href="@settings-url" target="_blank"> TrustedShops credentials</a> before inviting customer to review a product.', [
+        '@settings-url' => Url::fromRoute('commerce_trustedshops.settings')->toString(),
+      ]));
       return AccessResult::forbidden();
     }
 
@@ -104,6 +108,10 @@ class InviteReviewForm extends ConfirmFormBase {
     $context = new Context($store);
     $shop = $this->chainShopResolver->resolve($context);
     if (!$shop) {
+      $this->messenger()->addWarning($this->t('Please <a href="@crud-url" target="_blank">create a TrustedShop ID</a> for the store %store_name before inviting customer to review a product.', [
+        '@crud-url' => Url::fromRoute('entity.commerce_trustedshops_shop.add_form', ['commerce_trustedshops_shop' => 1])->toString(),
+        '%store_name' => $store->getName(),
+      ]));
       return AccessResult::forbidden();
     }
 
@@ -164,6 +172,18 @@ class InviteReviewForm extends ConfirmFormBase {
   public function buildForm(array $form, FormStateInterface $form_state, OrderInterface $commerce_order = NULL) {
     $this->order = $commerce_order;
     $form = parent::buildForm($form, $form_state);
+
+    $form['email_template'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Email template'),
+      '#options' => [
+        'BEST_PRACTICE' => $this->t('Good practices', [], ['context' => 'commerce_trustedshops_email_template']),
+        'CREATING_TRUST' => $this->t('Create more trust', [], ['context' => 'commerce_trustedshops_email_template']),
+        'CUSTOMER_SERVICE' => $this->t('Service', [], ['context' => 'commerce_trustedshops_email_template']),
+      ],
+      '#default_value' => 'CUSTOMER_SERVICE',
+    ];
+
     return $form;
   }
 
@@ -202,6 +222,67 @@ class InviteReviewForm extends ConfirmFormBase {
     /** @var \Drupal\address\AddressInterface $address */
     $address = $this->order->getBillingProfile()->get('address');
 
+    try {
+      $placed = DrupalDateTime::createFromTimestamp($this->order->getPlacedTime());
+      $now = \DateTime::createFromFormat('U', time());
+      $now->setTimezone(new \DateTimeZone('UTC'));
+
+      $result = $ts->post('shops/' . $shop->tsid->value . '/reviews/trigger.json', [
+        'reviewCollectorRequest' => [
+          'reviewCollectorReviewRequests' => [
+            [
+              'reminderDate' => $now->format('Y-m-d'),
+              'template' => [
+                'variant' => $form_state->getValue('email_template'),
+                'includeWidget' => 'true',
+              ],
+              'order' => [
+                'orderDate' => $placed->format('Y-m-d'),
+                'orderReference' => 'order-' . $this->order->getOrderNumber(),
+                'currency' => $this->order->getTotalPrice()->getCurrencyCode(),
+                'estimatedDeliveryDate' => $now->format('Y-m-d'),
+                'products' => $trusted_products,
+              ],
+              'consumer' => [
+                'firstname' => $address->given_name,
+                'lastname' => $address->family_name,
+                'contact' => [
+                   'email' => $this->order->getEmail(),
+                ],
+              ],
+            ],
+          ],
+        ],
+      ]);
+
+      // Get the response data.
+      $data = $result['data']['reviewCollectorRequest']['reviewCollectorReviewRequests'][0];
+
+      // TrustedShops may return a code 200 but still having errors.
+      // We manage to show them in the UI here.
+      if (isset($data['status']) && $data['status'] === 'ERROR') {
+        $this->messenger()->addError($this->t('Something went wrong while triggering an invitation to write a review - via TrustedShops - for your order #%order_number.', [
+          '%order_number' => $this->order->getOrderNumber(),
+        ]));
+
+        foreach ($data['errorMessages'] as $error) {
+          $this->messenger()->addError($error['message']);
+        }
+
+        return;
+      }
+
+      $this->messenger()->addStatus($this->t('An invitation to review the order #%order_number has been sent to %customer_email.', [
+        '%customer_email' => $this->order->getEmail(),
+        '%order_number' => $this->order->getOrderNumber(),
+      ]));
+    }
+    catch (\Exception $e) {
+      $this->messenger()->addError($this->t('Something went wrong while triggering an invitation to write a review - via TrustedShops - for your order #%order_number.<br>"@error".', [
+        '@error' => $ts->getLastError(),
+        '%order_number' => $this->order->getOrderNumber(),
+      ]));
+    }
 
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
