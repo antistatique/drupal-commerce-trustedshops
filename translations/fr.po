@@ -1,0 +1,19 @@
+# French translation of Commerce TrustedShops
+#
+msgid ""
+msgstr ""
+
+msgid "Email template"
+msgstr "Modèle d'e-mail"
+
+msgctxt "commerce_trustedshops_email_template"
+msgid "Good practices"
+msgstr "Bonnes Pratiques"
+
+msgctxt "commerce_trustedshops_email_template"
+msgid "Create more trust"
+msgstr "Créer plus de confiance"
+
+msgctxt "commerce_trustedshops_email_template"
+msgid "Service"
+msgstr "Service"
