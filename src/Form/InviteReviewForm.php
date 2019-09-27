@@ -4,8 +4,8 @@ namespace Drupal\commerce_trustedshops\Form;
 
 use Drupal\commerce_trustedshops\Context;
 use Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Antistatique\TrustedShops\TrustedShops;
+use Drupal\commerce_trustedshops\API\Review as TrustedShopsReview;
 
 /**
  * Provides the invite review confirmation form.
@@ -45,16 +45,26 @@ class InviteReviewForm extends ConfirmFormBase {
   protected $chainShopResolver;
 
   /**
+   * The Service to trigger invitations to review a shop.
+   *
+   * @var \Drupal\commerce_trustedshops\API\Review
+   */
+  protected $trustedShopsReview;
+
+  /**
    * Constructs a new InviteReviewForm object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface $chain_shop_resolver
    *   The chain resolver of Trusted Shop.
+   * @param \Drupal\commerce_trustedshops\API\Review $trustedshops_review
+   *   The Service to trigger invitations to review a shop.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ChainShopResolverInterface $chain_shop_resolver) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ChainShopResolverInterface $chain_shop_resolver, TrustedShopsReview $trustedshops_review) {
     $this->entityTypeManager = $entity_type_manager;
     $this->chainShopResolver = $chain_shop_resolver;
+    $this->trustedShopsReview = $trustedshops_review;
   }
 
   /**
@@ -63,7 +73,8 @@ class InviteReviewForm extends ConfirmFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
-      $container->get('commerce_trustedshops.chain_shop_resolver')
+      $container->get('commerce_trustedshops.chain_shop_resolver'),
+      $container->get('commerce_trustedshops.api.review')
     );
   }
 
@@ -191,72 +202,17 @@ class InviteReviewForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = $this->config('commerce_trustedshops.settings');
-
-    // Get configurations values for both optional API credentials.
-    $username = $config->get('api.username');
-    $password = $config->get('api.password');
-
-    // Confirms at least one TrustedShops-Id has been configured.
+    // Get the TrustedShops-ID configured for the given $store.
     $store = $this->order->getStore();
     $context = new Context($store);
     $shop = $this->chainShopResolver->resolve($context);
 
-    $ts = new TrustedShops('restricted');
-    $ts->setApiCredentials($username, $password);
-
-    $trusted_products = [];
-    foreach ($this->order->getItems() as $order_item) {
-      /** @var Drupal\commerce_product\Entity\ProductVariationInterface $product_variation */
-      $product_variation = $this->entityTypeManager->getStorage('commerce_product_variation')->load($order_item->getPurchasedEntityId());
-      /** @var \Drupal\commerce_product\Entity\ProductInterface $product */
-      $product = $product_variation->getProduct();
-
-      $trusted_products[] = [
-        'sku' => $product_variation->sku->value,
-        'name' => $product_variation->getTitle(),
-        'url' => $product->toUrl('canonical', ['absolute' => TRUE])->toString(),
-      ];
-    }
-
-    /** @var \Drupal\address\AddressInterface $address */
-    $address = $this->order->getBillingProfile()->get('address');
+    $email_template = Xss::filter($form_state->getValue('email_template'), []);
 
     try {
-      $placed = DrupalDateTime::createFromTimestamp($this->order->getPlacedTime());
-      $now = \DateTime::createFromFormat('U', time());
-      $now->setTimezone(new \DateTimeZone('UTC'));
-
-      $result = $ts->post('shops/' . $shop->tsid->value . '/reviews/trigger.json', [
-        'reviewCollectorRequest' => [
-          'reviewCollectorReviewRequests' => [
-            [
-              'reminderDate' => $now->format('Y-m-d'),
-              'template' => [
-                'variant' => $form_state->getValue('email_template'),
-                'includeWidget' => 'true',
-              ],
-              'order' => [
-                'orderDate' => $placed->format('Y-m-d'),
-                // TrustedShops has a limitation of at least 2 chars for
-                // orderReference. To bypass this limitation pass, we prefix
-                // every reference with "order-".
-                'orderReference' => 'order-' . $this->order->getOrderNumber(),
-                'currency' => $this->order->getTotalPrice()->getCurrencyCode(),
-                'estimatedDeliveryDate' => $now->format('Y-m-d'),
-                'products' => $trusted_products,
-              ],
-              'consumer' => [
-                'firstname' => $address->given_name,
-                'lastname' => $address->family_name,
-                'contact' => [
-                   'email' => $this->order->getEmail(),
-                ],
-              ],
-            ],
-          ],
-        ],
-      ]);
+      /** @var \Antistatique\TrustedShops\TrustedShops $ts */
+      $ts = $this->trustedShopsReview->triggerShopReview($email_template, $this->order, $shop);
+      $result = $ts->getLastResponse();
 
       // Get the response data.
       $data = $result['data']['reviewCollectorRequest']['reviewCollectorReviewRequests'][0];
