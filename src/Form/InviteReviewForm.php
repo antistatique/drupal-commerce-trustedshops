@@ -4,6 +4,7 @@ namespace Drupal\commerce_trustedshops\Form;
 
 use Drupal\commerce_trustedshops\Context;
 use Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
@@ -13,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Antistatique\TrustedShops\TrustedShops;
+use Drupal\commerce_trustedshops\API\Review as TrustedShopsReview;
 
 /**
  * Provides the invite review confirmation form.
@@ -44,16 +45,26 @@ class InviteReviewForm extends ConfirmFormBase {
   protected $chainShopResolver;
 
   /**
+   * The Service to trigger invitations to review a shop.
+   *
+   * @var \Drupal\commerce_trustedshops\API\Review
+   */
+  protected $trustedShopsReview;
+
+  /**
    * Constructs a new InviteReviewForm object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface $chain_shop_resolver
    *   The chain resolver of Trusted Shop.
+   * @param \Drupal\commerce_trustedshops\API\Review $trustedshops_review
+   *   The Service to trigger invitations to review a shop.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ChainShopResolverInterface $chain_shop_resolver) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ChainShopResolverInterface $chain_shop_resolver, TrustedShopsReview $trustedshops_review) {
     $this->entityTypeManager = $entity_type_manager;
     $this->chainShopResolver = $chain_shop_resolver;
+    $this->trustedShopsReview = $trustedshops_review;
   }
 
   /**
@@ -62,7 +73,8 @@ class InviteReviewForm extends ConfirmFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
-      $container->get('commerce_trustedshops.chain_shop_resolver')
+      $container->get('commerce_trustedshops.chain_shop_resolver'),
+      $container->get('commerce_trustedshops.api.review')
     );
   }
 
@@ -96,6 +108,9 @@ class InviteReviewForm extends ConfirmFormBase {
 
     // Confirms the TrustedShops API configurations has been filled.
     if (!$config->get('api.username') || !$config->get('api.password')) {
+      $this->messenger()->addWarning($this->t('Please configure your <a href="@settings-url" target="_blank"> TrustedShops credentials</a> before inviting customer to review an order.', [
+        '@settings-url' => Url::fromRoute('commerce_trustedshops.settings')->toString(),
+      ]));
       return AccessResult::forbidden();
     }
 
@@ -104,6 +119,10 @@ class InviteReviewForm extends ConfirmFormBase {
     $context = new Context($store);
     $shop = $this->chainShopResolver->resolve($context);
     if (!$shop) {
+      $this->messenger()->addWarning($this->t('Please <a href="@crud-url" target="_blank">create a TrustedShop ID</a> for the store %store_name before inviting customer to review an order.', [
+        '@crud-url' => Url::fromRoute('entity.commerce_trustedshops_shop.add_form', ['commerce_trustedshops_shop' => 1])->toString(),
+        '%store_name' => $store->getName(),
+      ]));
       return AccessResult::forbidden();
     }
 
@@ -164,6 +183,18 @@ class InviteReviewForm extends ConfirmFormBase {
   public function buildForm(array $form, FormStateInterface $form_state, OrderInterface $commerce_order = NULL) {
     $this->order = $commerce_order;
     $form = parent::buildForm($form, $form_state);
+
+    $form['email_template'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Email template'),
+      '#options' => [
+        'BEST_PRACTICE' => $this->t('Good practices', [], ['context' => 'commerce_trustedshops_email_template']),
+        'CREATING_TRUST' => $this->t('Create more trust', [], ['context' => 'commerce_trustedshops_email_template']),
+        'CUSTOMER_SERVICE' => $this->t('Service', [], ['context' => 'commerce_trustedshops_email_template']),
+      ],
+      '#default_value' => 'CUSTOMER_SERVICE',
+    ];
+
     return $form;
   }
 
@@ -171,37 +202,46 @@ class InviteReviewForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = $this->config('commerce_trustedshops.settings');
-
-    // Get configurations values for both optional API credentials.
-    $username = $config->get('api.username');
-    $password = $config->get('api.password');
-
-    // Confirms at least one TrustedShops-Id has been configured.
+    // Get the TrustedShops-ID configured for the given $store.
     $store = $this->order->getStore();
     $context = new Context($store);
     $shop = $this->chainShopResolver->resolve($context);
 
-    $ts = new TrustedShops('restricted');
-    $ts->setApiCredentials($username, $password);
+    $email_template = Xss::filter($form_state->getValue('email_template'), []);
 
-    $trusted_products = [];
-    foreach ($this->order->getItems() as $order_item) {
-      /** @var Drupal\commerce_product\Entity\ProductVariationInterface $product_variation */
-      $product_variation = $this->entityTypeManager->getStorage('commerce_product_variation')->load($order_item->getPurchasedEntityId());
-      /** @var \Drupal\commerce_product\Entity\ProductInterface $product */
-      $product = $product_variation->getProduct();
+    try {
+      /** @var \Antistatique\TrustedShops\TrustedShops $ts */
+      $ts = $this->trustedShopsReview->triggerShopReview($email_template, $this->order, $shop);
+      $result = $ts->getLastResponse();
 
-      $trusted_products[] = [
-        'sku' => $product_variation->sku->value,
-        'name' => $product_variation->getTitle(),
-        'url' => $product->toUrl('canonical', ['absolute' => TRUE])->toString(),
-      ];
+      // Get the response data.
+      $data = $result['data']['reviewCollectorRequest']['reviewCollectorReviewRequests'][0];
+
+      // TrustedShops may return a code 200 but still having errors.
+      // We manage to show them in the UI here.
+      if (isset($data['status']) && $data['status'] === 'ERROR') {
+        $this->messenger()->addError($this->t('Something went wrong while triggering an invitation to write a review - via TrustedShops - for your order #%order_number.', [
+          '%order_number' => $this->order->getOrderNumber(),
+        ]));
+
+        foreach ($data['errorMessages'] as $error) {
+          $this->messenger()->addError($error['message']);
+        }
+
+        return;
+      }
+
+      $this->messenger()->addStatus($this->t('An invitation to review the order #%order_number has been sent to %customer_email.', [
+        '%customer_email' => $this->order->getEmail(),
+        '%order_number' => $this->order->getOrderNumber(),
+      ]));
     }
-
-    /** @var \Drupal\address\AddressInterface $address */
-    $address = $this->order->getBillingProfile()->get('address');
-
+    catch (\Exception $e) {
+      $this->messenger()->addError($this->t('Something went wrong while triggering an invitation to write a review - via TrustedShops - for your order #%order_number.<br>"@error".', [
+        '@error' => $ts->getLastError(),
+        '%order_number' => $this->order->getOrderNumber(),
+      ]));
+    }
 
     $form_state->setRedirectUrl($this->getCancelUrl());
   }

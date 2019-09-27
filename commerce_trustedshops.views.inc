@@ -10,9 +10,8 @@
  */
 function commerce_trustedshops_views_data_alter(array &$data) {
   $data['commerce_order']['order_link_invite_review'] = [
-    'title' => t('TrustedShops invite review link'),
     'field' => [
-      'title' => t('TrustedShops invite review link'),
+      'title' => t('TrustedShops: Link to invite writing a review of Order'),
       'id' => 'order_link_invite_review',
     ],
   ];

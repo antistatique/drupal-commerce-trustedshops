@@ -33,6 +33,17 @@ class SettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('commerce_trustedshops.settings');
 
+    $form['mode'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('E nvironment'),
+      '#options' => [
+        1 => $this->t('Test (QA)'),
+        0 => $this->t('Production'),
+      ],
+      '#description' => $this->t('Use the Test/QA environment if you want to tests the module. Otherwhise, you risk to send review & emails to your end-user and potentialy badly collect your e-shop reviews..'),
+      '#default_value' => $config->get('test_mode') ?: 0,
+    ];
+
     // Get configurations values for both optional API credentials.
     $username = $config->get('api.username');
     $password = $config->get('api.password');
@@ -65,10 +76,12 @@ class SettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
 
+    $mode = Xss::filter($values['mode'], []);
     $username = Xss::filter($values['username'], []);
     $password = Xss::filter($values['password'], []);
 
     $config = $this->config('commerce_trustedshops.settings');
+    $config->set('test_mode', (bool) $mode)->save();
     $config->set('api.username', $username)->save();
     $config->set('api.password', $password)->save();
 

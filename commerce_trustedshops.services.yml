@@ -9,3 +9,11 @@ services:
     arguments: ['@entity_type.manager', '@entity.repository', '@commerce_store.current_store', '@language_manager']
     tags:
       - { name: commerce_trustedshops.shop_resolver, priority: -100 }
+
+  commerce_trustedshops.api:
+    class: Antistatique\TrustedShops\TrustedShops
+    arguments: ['public']
+
+  commerce_trustedshops.api.review:
+    class: Drupal\commerce_trustedshops\API\Review
+    arguments: ['@commerce_trustedshops.api', '@config.factory']

@@ -38,7 +38,7 @@ class OrderLinkInviteReview extends LinkBase {
    */
   protected function getUrlInfo(ResultRow $row) {
     $order = $this->getEntity($row);
-    return Url::fromRoute('commerce_trustedshops.invite_review_confirm', ['commerce_order' => $order->id()]);
+    return Url::fromRoute('commerce_trustedshops.commerce_order.invite_review_confirm', ['commerce_order' => $order->id()]);
   }
 
   /**

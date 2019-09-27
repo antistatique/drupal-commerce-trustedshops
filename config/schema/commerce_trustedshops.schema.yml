@@ -2,14 +2,17 @@ commerce_trustedshops.settings:
   type: config_object
   label: 'Commerce TrustedShops settings'
   mapping:
+    test_mode:
+      type: boolean
+      label: 'Toggler to enable or disable the Test/QA environment'
     api:
       type: mapping
       label: 'API'
       mapping:
-        user:
+        username:
           type: string
           label: 'TrustedShops API username'
-        pass:
+        password:
           type: string
           label: 'TrustedShops API password'
 

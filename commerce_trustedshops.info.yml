@@ -6,3 +6,6 @@ core: 8.x
 dependencies:
   - drupal:commerce
   - drupal:commerce_store
+
+interface translation project: commerce_trustedshops
+interface translation server pattern: translations/%language.po

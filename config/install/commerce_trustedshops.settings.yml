@@ -1,4 +1,5 @@
+test_mode: FALSE
 api:
-  user: ''
-  pass: ''
+  username: ''
+  password: ''
 
