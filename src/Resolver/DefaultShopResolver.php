@@ -72,13 +72,13 @@ class DefaultShopResolver implements ShopResolverInterface {
 
     /** @var \Drupal\commerce_store\Entity\StoreInterface $store */
     $store = $this->currentStore->getStore();
-    if ($context->getStore()) {
+    if ($context && $context->getStore()) {
       $store = $context->getStore();
     }
 
     /** @var \Drupal\Core\Language\LanguageInterface $lang */
     $lang = $this->currentLang;
-    if ($context->getLanguage()) {
+    if ($context && $context->getLanguage()) {
       $lang = $context->getLanguage();
     }
 

@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Defines the hooks of Commerce TrustedShops module and associated features.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function commerce_trustedshops_theme($existing, $type, $theme, $path) {
+  return [
+    'commerce_trustedshops_trustedbadge_block' => [
+      'template'  => 'block--commerce-trustedshops-trustedbadge',
+      'variables' => [
+        'tsid' => NULL,
+      ],
+    ],
+  ];
+}

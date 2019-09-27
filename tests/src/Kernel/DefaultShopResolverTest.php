@@ -145,6 +145,16 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
   /**
    * @covers \Drupal\commerce_trustedshops\Resolver\DefaultShopResolver::resolve
    */
+  public function testResolveWhitoutContext() {
+    $shop = $this->defaultShopResolver->resolve();
+    $shop_storage = $this->entityTypeManager->getStorage('commerce_trustedshops_shop');
+    $expected_shop = $shop_storage->load($this->testShops[1]->id());
+    $this->assertEqual($expected_shop, $shop);
+  }
+
+  /**
+   * @covers \Drupal\commerce_trustedshops\Resolver\DefaultShopResolver::resolve
+   */
   public function testResolveNull() {
     $context = new Context($this->testStores[1], new Language(['id' => 'en']));
     $shop = $this->defaultShopResolver->resolve($context);
