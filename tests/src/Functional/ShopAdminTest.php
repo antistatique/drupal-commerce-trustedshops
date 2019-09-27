@@ -24,13 +24,6 @@ class ShopAdminTest extends CommerceBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
-    parent::setUp();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   protected function getAdministratorPermissions() {
     return array_merge([
       'administer commerce trustedshops',
