@@ -63,8 +63,25 @@ class Shop extends ContentEntityBase implements ShopInterface {
   /**
    * {@inheritdoc}
    */
+  public function getTsid() {
+    return $this->get('tsid')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setTsid($tsid) {
+    $this->set('tsid', $tsid);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getStore() {
-    return $this->get('store')->referencedEntities();
+    $referenced_entities = $this->get('store')->referencedEntities();
+    $referenced_entity = reset($referenced_entities);
+    return $referenced_entity ?: NULL;
   }
 
   /**
