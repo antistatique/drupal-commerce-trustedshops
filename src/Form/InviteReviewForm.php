@@ -238,6 +238,9 @@ class InviteReviewForm extends ConfirmFormBase {
               ],
               'order' => [
                 'orderDate' => $placed->format('Y-m-d'),
+                // TrustedShops has a limitation of at least 2 chars for
+                // orderReference. To bypass this limitation pass, we prefix
+                // every reference with "order-".
                 'orderReference' => 'order-' . $this->order->getOrderNumber(),
                 'currency' => $this->order->getTotalPrice()->getCurrencyCode(),
                 'estimatedDeliveryDate' => $now->format('Y-m-d'),
