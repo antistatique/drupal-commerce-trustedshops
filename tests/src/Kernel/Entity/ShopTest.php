@@ -27,7 +27,7 @@ class ShopTest extends CommerceKernelTestBase {
    * @var array
    */
   public static $modules = [
-    'commerce_trustedshops'
+    'commerce_trustedshops',
   ];
 
   /**
@@ -66,7 +66,7 @@ class ShopTest extends CommerceKernelTestBase {
     $this->assertNull($shop->getStore());
     $shop->setStore($this->store);
     $this->assertEquals($this->store, $shop->getStore());
-    $this->assertEquals($this->store->id(),   $shop->getStoreId());
+    $this->assertEquals($this->store->id(), $shop->getStoreId());
     $shop->setStoreId(0);
     $this->assertEquals(NULL, $shop->getStore());
     $shop->setStoreId($this->store->id());
@@ -76,4 +76,5 @@ class ShopTest extends CommerceKernelTestBase {
     $shop->setCreatedTime(635879700);
     $this->assertEquals(635879700, $shop->getCreatedTime());
   }
+
 }
