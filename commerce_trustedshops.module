@@ -10,6 +10,9 @@
  */
 function commerce_trustedshops_theme($existing, $type, $theme, $path) {
   return [
+    'commerce_trustedshops_review_collector' => [
+      'render element' => 'form',
+    ],
     'commerce_trustedshops_trustedbadge_block' => [
       'template'  => 'block--commerce-trustedshops-trustedbadge',
       'variables' => [
