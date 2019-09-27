@@ -97,7 +97,7 @@ class InviteReviewForm extends ConfirmFormBase {
 
     // Confirms the TrustedShops API configurations has been filled.
     if (!$config->get('api.username') || !$config->get('api.password')) {
-      $this->messenger()->addWarning($this->t('Please configure your <a href="@settings-url" target="_blank"> TrustedShops credentials</a> before inviting customer to review a product.', [
+      $this->messenger()->addWarning($this->t('Please configure your <a href="@settings-url" target="_blank"> TrustedShops credentials</a> before inviting customer to review an order.', [
         '@settings-url' => Url::fromRoute('commerce_trustedshops.settings')->toString(),
       ]));
       return AccessResult::forbidden();
@@ -108,7 +108,7 @@ class InviteReviewForm extends ConfirmFormBase {
     $context = new Context($store);
     $shop = $this->chainShopResolver->resolve($context);
     if (!$shop) {
-      $this->messenger()->addWarning($this->t('Please <a href="@crud-url" target="_blank">create a TrustedShop ID</a> for the store %store_name before inviting customer to review a product.', [
+      $this->messenger()->addWarning($this->t('Please <a href="@crud-url" target="_blank">create a TrustedShop ID</a> for the store %store_name before inviting customer to review an order.', [
         '@crud-url' => Url::fromRoute('entity.commerce_trustedshops_shop.add_form', ['commerce_trustedshops_shop' => 1])->toString(),
         '%store_name' => $store->getName(),
       ]));
