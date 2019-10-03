@@ -4,19 +4,18 @@
  * A layout for the checkout review collector form.
  *
  * Available variables:
- * - form: The form.
- *   - shop: The TrustedShops Shop.
- *   - order: The Order.
+ * - shop: The TrustedShops Shop.
+ * - order: The Order.
  *
  * @ingroup themeable
  */
 #}
 <div class="commerce-trustedshops-review-collector" id="trustedShopsCheckout" style="display: none;">
     {# TrustedShops variables #}
-    <span id="tsCheckoutOrderNr">{{ form.order.getOrderNumber }}</span>
-    <span id="tsCheckoutBuyerEmail">{{ form.order.mail.value }}</span>
-    <span id="tsCheckoutOrderAmount">{{ form.order.total_price.number|number_format(2, '.', '') }}</span>
-    <span id="tsCheckoutOrderCurrency">{{ form.order.total_price.currency_code }}</span>
-    <span id="tsCheckoutOrderPaymentType">{{ form.order.payment_gateway.entity.label }}</span>
-    <span id="tsCheckoutOrderEstDeliveryDate">{{ now|date_modify("+1 week")|date("Y-m-d") }}</span>
+    <span id="tsCheckoutOrderNr">{{ order.getOrderNumber }}</span>
+    <span id="tsCheckoutBuyerEmail">{{ order.mail.value }}</span>
+    <span id="tsCheckoutOrderAmount">{{ order.total_price.number|number_format(2, '.', '') }}</span>
+    <span id="tsCheckoutOrderCurrency">{{ order.total_price.currency_code }}</span>
+    <span id="tsCheckoutOrderPaymentType">{{ order.payment_gateway.entity.label }}</span>
+    <span id="tsCheckoutOrderEstDeliveryDate">{{ order.placed.value|date_modify("+1 week")|date("Y-m-d") }}</span>
 </div>

@@ -1,0 +1,7 @@
+name: Commerce TrustedShops Test
+description: 'Support module for Commerce TrustedShops.'
+package: Testing
+type: module
+core: 8.x
+dependencies:
+  - drupal:commerce_trustedshops
