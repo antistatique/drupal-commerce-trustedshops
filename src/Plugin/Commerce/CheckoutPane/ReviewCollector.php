@@ -88,8 +88,8 @@ class ReviewCollector extends CheckoutPaneBase implements CheckoutPaneInterface 
     $shop = $this->chainShopResolver->resolve();
 
     $pane_form['#theme'] = 'commerce_trustedshops_review_collector';
-    $pane_form['shop'] = $shop;
-    $pane_form['order'] = $this->order;
+    $pane_form['#shop'] = $shop;
+    $pane_form['#order'] = $this->order;
 
     return $pane_form;
   }
