@@ -10,13 +10,13 @@ Still under active development.
 
 ***Everything contained in this document is in draft form and subject to change at any time and provided for information purposes only***
 
-- *wip* Display Trustedbadge
-- *wip* Customize the Trustebadge 
-- *wip* Collect Reviews on orders
-- *wip* Display Shop Review Sticker
-- *wip* Display the Review Collector on
+- Display Trustedbadge
+- Customize the Trustebadge 
+- Collect Reviews on orders
+- *soon* Display Shop Review Sticker
+- *soon* Display the Review Collector on products
 - Send Invites Reviews from existing orders
-- *wip* Send Automatic Invites Reviews according to Commerce Order State
+- *soon* Send Automatic Invites Reviews according to Commerce Order State
 
 _Please note: If you have already integrated the Trustbadge® manually, please delete it before continuing._
 
