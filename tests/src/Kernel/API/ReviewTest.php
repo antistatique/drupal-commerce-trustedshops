@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_trustedshops\Kernel\API;
 
 use Drupal\commerce_trustedshops\API\Review as TrustedShopsReview;
+use Drupal\Core\Language\Language;
 
 /**
  * Tests the Shop entity.
@@ -42,6 +43,7 @@ class ReviewTest extends APITestBase {
    * @covers ::triggerShopReview
    */
   public function testTriggerShopReview() {
+    $language = new Language(['id' => 'fr']);
     $now = \DateTime::createFromFormat('U', time());
     $now->setTimezone(new \DateTimeZone('UTC'));
 
@@ -79,6 +81,7 @@ class ReviewTest extends APITestBase {
                 'lastname' => '',
                 'contact' => [
                   'email' => 'john.doe@example.org',
+                  'language' => 'fr',
                 ],
               ],
             ],
@@ -86,7 +89,7 @@ class ReviewTest extends APITestBase {
         ],
       ]);
 
-    $this->trustedShopsReview->triggerShopReview('BEST_PRACTICE', $this->order, $this->shop);
+    $this->trustedShopsReview->triggerShopReview('BEST_PRACTICE', $this->order, $this->shop, $language);
   }
 
 }

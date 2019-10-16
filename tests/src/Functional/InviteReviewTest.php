@@ -146,6 +146,11 @@ class InviteReviewTest extends OrderBrowserTestBase {
     $this->assertSession()->optionExists('email_template', 'BEST_PRACTICE');
     $this->assertSession()->optionExists('email_template', 'CREATING_TRUST');
     $this->assertSession()->optionExists('email_template', 'CUSTOMER_SERVICE');
+
+    $this->assertSession()->fieldDisabled('tsid');
+    $this->assertSession()->fieldValueEquals('tsid', 'RCGABMX17MMTAF9V97G9DZEAKG1EILO0U');
+    $this->assertSession()->fieldDisabled('language');
+    $this->assertSession()->fieldValueEquals('language', 'Not specified (und)');
   }
 
 }

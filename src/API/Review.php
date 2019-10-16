@@ -7,6 +7,7 @@ use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce_trustedshops\Entity\ShopInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Language\LanguageInterface;
 
 /**
  * Allow merchants to trigger review request emails to customers.
@@ -55,6 +56,8 @@ class Review {
    *   The order to write a review for.
    * @param \Drupal\commerce_trustedshops\Entity\ShopInterface $shop
    *   The TrustedShops-ID to use for review.
+   * @param \Drupal\Core\Language\LanguageInterface $language
+   *   The language interface to use for the review.
    *
    * @return \Antistatique\TrustedShops\TrustedShops
    *   The TrustedShops object containing the response.
@@ -62,7 +65,7 @@ class Review {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Exception
    */
-  public function triggerShopReview($email_template, OrderInterface $order, ShopInterface $shop) {
+  public function triggerShopReview($email_template, OrderInterface $order, ShopInterface $shop, LanguageInterface $language) {
     $config = $this->configFactory->get('commerce_trustedshops.settings');
 
     // Get configurations values for both optional API credentials.
@@ -123,6 +126,7 @@ class Review {
               'lastname' => $address->family_name,
               'contact' => [
                 'email' => $order->getEmail(),
+                'language' => $language->getId(),
               ],
             ],
           ],

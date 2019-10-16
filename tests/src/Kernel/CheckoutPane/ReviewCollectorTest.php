@@ -135,7 +135,7 @@ class ReviewCollectorTest extends DrupalCommerceKernelTestBase {
    * @covers ::buildPaneForm
    */
   public function testRender() {
-    $expected_output = file_get_contents(__DIR__  . '/../../../modules/commerce_trustedshops_test/assets/html/commerce-trustedshops-review-collector.html');
+    $expected_output = file_get_contents(__DIR__ . '/../../../modules/commerce_trustedshops_test/assets/html/commerce-trustedshops-review-collector.html');
 
     $render = [
       '#theme' => 'commerce_trustedshops_review_collector',

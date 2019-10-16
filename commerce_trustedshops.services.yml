@@ -10,6 +10,16 @@ services:
     tags:
       - { name: commerce_trustedshops.shop_resolver, priority: -100 }
 
+  commerce_trustedshops.chain_order_language_resolver:
+    class: Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolver
+    tags:
+      - { name: service_collector, call: addResolver, tag: commerce_trustedshops.order_language_resolver }
+
+  commerce_trustedshops.default_order_language_resolver:
+    class: Drupal\commerce_trustedshops\Resolver\OrderLanguage\DefaultOrderLanguageResolver
+    tags:
+      - { name: commerce_trustedshops.order_language_resolver, priority: -100 }
+
   commerce_trustedshops.api:
     class: Antistatique\TrustedShops\TrustedShops
     arguments: ['public']
