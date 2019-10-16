@@ -3,7 +3,7 @@
 namespace Drupal\commerce_trustedshops\Form;
 
 use Drupal\commerce_trustedshops\Context;
-use Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface;
+use Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -40,7 +40,7 @@ class InviteReviewForm extends ConfirmFormBase {
   /**
    * The chain resolver of Trusted Shop.
    *
-   * @var \Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface
+   * @var \Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface
    */
   protected $chainShopResolver;
 
@@ -56,7 +56,7 @@ class InviteReviewForm extends ConfirmFormBase {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   * @param \Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface $chain_shop_resolver
+   * @param \Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface $chain_shop_resolver
    *   The chain resolver of Trusted Shop.
    * @param \Drupal\commerce_trustedshops\API\Review $trustedshops_review
    *   The Service to trigger invitations to review a shop.

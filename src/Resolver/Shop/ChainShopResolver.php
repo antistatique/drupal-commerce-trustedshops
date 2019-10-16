@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_trustedshops\Resolver;
+namespace Drupal\commerce_trustedshops\Resolver\Shop;
 
 use Drupal\commerce_trustedshops\Context;
 
@@ -12,14 +12,14 @@ class ChainShopResolver implements ChainShopResolverInterface {
   /**
    * The resolvers.
    *
-   * @var \Drupal\commerce_trustedshops\Resolver\ShopResolverInterface[]
+   * @var \Drupal\commerce_trustedshops\Resolver\Shop\ShopResolverInterface[]
    */
   protected $resolvers = [];
 
   /**
    * Constructs a new ChainShopResolver object.
    *
-   * @param \Drupal\commerce_trustedshops\Resolver\ShopResolverInterface[] $resolvers
+   * @param \Drupal\commerce_trustedshops\Resolver\Shop\ShopResolverInterface[] $resolvers
    *   The resolvers.
    */
   public function __construct(array $resolvers = []) {

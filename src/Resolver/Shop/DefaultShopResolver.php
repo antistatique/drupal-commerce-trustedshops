@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_trustedshops\Resolver;
+namespace Drupal\commerce_trustedshops\Resolver\Shop;
 
 use Drupal\commerce_store\CurrentStoreInterface;
 use Drupal\commerce_trustedshops\Context;

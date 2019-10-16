@@ -2,12 +2,12 @@
 
 namespace Drupal\Tests\commerce_trustedshops\Unit\Resolver;
 
-use Drupal\commerce_trustedshops\Resolver\ChainShopResolver;
+use Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolver;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\ChainShopResolver
+ * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolver
  *
  * @group commerce_trustedshops
  */
@@ -16,7 +16,7 @@ class ChainShopResolverTest extends UnitTestCase {
   /**
    * The resolver.
    *
-   * @var \Drupal\commerce_trustedshops\Resolver\ChainShopResolver
+   * @var \Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolver
    */
   protected $resolver;
 
@@ -38,7 +38,7 @@ class ChainShopResolverTest extends UnitTestCase {
   public function testResolver() {
     $container = new ContainerBuilder();
 
-    $mock_builder = $this->getMockBuilder('Drupal\commerce_trustedshops\Resolver\ShopResolverInterface')
+    $mock_builder = $this->getMockBuilder('Drupal\commerce_trustedshops\Resolver\Shop\ShopResolverInterface')
       ->disableOriginalConstructor();
 
     $first_resolver = $mock_builder->getMock();
