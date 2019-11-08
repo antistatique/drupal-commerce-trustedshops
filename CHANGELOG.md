@@ -1,7 +1,10 @@
 CHANGELOG
 ---------
 
-## 8.x-1.x-alpha (2019-08-10)
+## 8.x-1.x-alpha2 (2019-08-11)
+ - Issue #3087963: Wrong language of Email sent by TrustedShops when using the Manual Trigger form
+
+## 8.x-1.x-alpha1 (2019-08-10)
   - Add a new entity named Shop (commerce_trustedshops_shop) to deal with TrustedShops TIDs
   - Unit tested and covered CRUD operations on the Shop entity
   - Expose a themeable TrustedBadge block
