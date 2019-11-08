@@ -49,6 +49,7 @@ class Review {
    *
    * Attempts to trigger a review via the TrustedShops API. An exception may be
    * throw on error from the TrustedShops API.
+   * The e-mail language will use the TSID configured language.
    *
    * @param string $email_template
    *   The email template to use.
@@ -56,8 +57,6 @@ class Review {
    *   The order to write a review for.
    * @param \Drupal\commerce_trustedshops\Entity\ShopInterface $shop
    *   The TrustedShops-ID to use for review.
-   * @param \Drupal\Core\Language\LanguageInterface $language
-   *   The language interface to use for the review.
    *
    * @return \Antistatique\TrustedShops\TrustedShops
    *   The TrustedShops object containing the response.
@@ -65,7 +64,7 @@ class Review {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    * @throws \Exception
    */
-  public function triggerShopReview($email_template, OrderInterface $order, ShopInterface $shop, LanguageInterface $language) {
+  public function triggerShopReview($email_template, OrderInterface $order, ShopInterface $shop) {
     $config = $this->configFactory->get('commerce_trustedshops.settings');
 
     // Get configurations values for both optional API credentials.
@@ -102,6 +101,8 @@ class Review {
     $now = \DateTime::createFromFormat('U', time());
     $now->setTimezone(new \DateTimeZone('UTC'));
 
+    // The triggered e-mail will use the TSID configured language.
+    // TrustedShops does not support language overriding via any parameters.
     $this->trustedShops->post('shops/' . $shop->tsid->value . '/reviews/trigger.json', [
       'reviewCollectorRequest' => [
         'reviewCollectorReviewRequests' => [
@@ -126,7 +127,6 @@ class Review {
               'lastname' => $address->family_name,
               'contact' => [
                 'email' => $order->getEmail(),
-                'language' => $language->getId(),
               ],
             ],
           ],
