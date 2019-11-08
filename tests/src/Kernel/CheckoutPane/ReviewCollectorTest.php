@@ -52,6 +52,7 @@ class ReviewCollectorTest extends DrupalCommerceKernelTestBase {
     'commerce',
     'commerce_product',
     'commerce_order',
+    'commerce_number_pattern',
     'commerce_price',
     'commerce_store',
     'commerce_trustedshops',
@@ -71,6 +72,7 @@ class ReviewCollectorTest extends DrupalCommerceKernelTestBase {
     $this->installEntitySchema('commerce_product');
     $this->installEntitySchema('commerce_product_variation');
     $this->installConfig(['commerce_product', 'commerce_order']);
+    $this->installSchema('commerce_number_pattern', ['commerce_number_pattern_sequence']);
 
     $this->installEntitySchema('commerce_trustedshops_shop');
     $this->installConfig('commerce_trustedshops');
