@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_trustedshops\Resolver;
+namespace Drupal\commerce_trustedshops\Resolver\Shop;
 
 /**
  * Runs the added resolvers one by one until one of them returns the shop.
@@ -13,7 +13,7 @@ interface ChainShopResolverInterface extends ShopResolverInterface {
   /**
    * Adds a resolver.
    *
-   * @param \Drupal\commerce_trustedshops\Resolver\ShopResolverInterface $resolver
+   * @param \Drupal\commerce_trustedshops\Resolver\Shop\ShopResolverInterface $resolver
    *   The resolver.
    */
   public function addResolver(ShopResolverInterface $resolver);
@@ -21,7 +21,7 @@ interface ChainShopResolverInterface extends ShopResolverInterface {
   /**
    * Gets all added resolvers.
    *
-   * @return \Drupal\commerce_trustedshops\Resolver\ShopResolverInterface[]
+   * @return \Drupal\commerce_trustedshops\Resolver\Shop\ShopResolverInterface[]
    *   The resolvers.
    */
   public function getResolvers();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\commerce_trustedshops\Resolver;
+namespace Drupal\commerce_trustedshops\Resolver\Shop;
 
 use Drupal\commerce_trustedshops\Context;
 
@@ -15,7 +15,7 @@ interface ShopResolverInterface {
    * @param \Drupal\commerce_trustedshops\Context $context
    *   The context.
    *
-   * @return Drupal\commerce_trustedshops\Entity\ShopInterface|null
+   * @return \Drupal\commerce_trustedshops\Entity\ShopInterface|null
    *   The shop, if resolved. Otherwise NULL, indicating that the next
    *   resolver in the chain should be called.
    */

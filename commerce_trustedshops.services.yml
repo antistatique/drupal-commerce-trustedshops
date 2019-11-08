@@ -1,14 +1,24 @@
 services:
   commerce_trustedshops.chain_shop_resolver:
-    class: Drupal\commerce_trustedshops\Resolver\ChainShopResolver
+    class: Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolver
     tags:
       - { name: service_collector, call: addResolver, tag: commerce_trustedshops.shop_resolver }
 
   commerce_trustedshops.default_shop_resolver:
-    class: Drupal\commerce_trustedshops\Resolver\DefaultShopResolver
+    class: Drupal\commerce_trustedshops\Resolver\Shop\DefaultShopResolver
     arguments: ['@entity_type.manager', '@entity.repository', '@commerce_store.current_store', '@language_manager']
     tags:
       - { name: commerce_trustedshops.shop_resolver, priority: -100 }
+
+  commerce_trustedshops.chain_order_language_resolver:
+    class: Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolver
+    tags:
+      - { name: service_collector, call: addResolver, tag: commerce_trustedshops.order_language_resolver }
+
+  commerce_trustedshops.default_order_language_resolver:
+    class: Drupal\commerce_trustedshops\Resolver\OrderLanguage\DefaultOrderLanguageResolver
+    tags:
+      - { name: commerce_trustedshops.order_language_resolver, priority: -100 }
 
   commerce_trustedshops.api:
     class: Antistatique\TrustedShops\TrustedShops

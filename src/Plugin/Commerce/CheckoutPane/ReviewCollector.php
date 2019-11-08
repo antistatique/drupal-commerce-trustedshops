@@ -5,7 +5,7 @@ namespace Drupal\commerce_trustedshops\Plugin\Commerce\CheckoutPane;
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutFlow\CheckoutFlowInterface;
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneBase;
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneInterface;
-use Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface;
+use Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -24,7 +24,7 @@ class ReviewCollector extends CheckoutPaneBase implements CheckoutPaneInterface 
   /**
    * The chain resolver of Trusted Shop.
    *
-   * @var \Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface
+   * @var \Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface
    */
   protected $chainShopResolver;
 
@@ -41,7 +41,7 @@ class ReviewCollector extends CheckoutPaneBase implements CheckoutPaneInterface 
    *   The parent checkout flow.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   * @param \Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface $chain_shop_resolver
+   * @param \Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface $chain_shop_resolver
    *   The chain resolver of Trusted Shop.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, CheckoutFlowInterface $checkout_flow, EntityTypeManagerInterface $entity_type_manager, ChainShopResolverInterface $chain_shop_resolver) {

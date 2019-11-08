@@ -2,21 +2,22 @@
 
 namespace Drupal\Tests\commerce_trustedshops\Unit\Resolver;
 
-use Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolver;
+use Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolver;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Tests\UnitTestCase;
+use Drupal\commerce_order\Entity\OrderInterface;
 
 /**
- * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolver
+ * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolver
  *
  * @group commerce_trustedshops
  */
-class ChainShopResolverTest extends UnitTestCase {
+class ChainOrderLanguageResolverTest extends UnitTestCase {
 
   /**
    * The resolver.
    *
-   * @var \Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolver
+   * @var \Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolver
    */
   protected $resolver;
 
@@ -25,7 +26,7 @@ class ChainShopResolverTest extends UnitTestCase {
    */
   public function setUp() {
     parent::setUp();
-    $this->resolver = new ChainShopResolver();
+    $this->resolver = new ChainOrderLanguageResolver();
   }
 
   /**
@@ -38,21 +39,25 @@ class ChainShopResolverTest extends UnitTestCase {
   public function testResolver() {
     $container = new ContainerBuilder();
 
-    $mock_builder = $this->getMockBuilder('Drupal\commerce_trustedshops\Resolver\Shop\ShopResolverInterface')
+    $order_mock_builder = $this->getMockBuilder(OrderInterface::class)
+      ->disableOriginalConstructor();
+    $order_mock = $order_mock_builder->getMock();
+
+    $resolver_mock_builder = $this->getMockBuilder('Drupal\commerce_trustedshops\Resolver\OrderLanguage\OrderLanguageResolverInterface')
       ->disableOriginalConstructor();
 
-    $first_resolver = $mock_builder->getMock();
+    $first_resolver = $resolver_mock_builder->getMock();
     $first_resolver->expects($this->once())
       ->method('resolve');
     $container->set('commerce.first_resolver', $first_resolver);
 
-    $second_resolver = $mock_builder->getMock();
+    $second_resolver = $resolver_mock_builder->getMock();
     $second_resolver->expects($this->once())
       ->method('resolve')
-      ->willReturn('testShop');
+      ->willReturn('testLanguage');
     $container->set('commerce.second_resolver', $second_resolver);
 
-    $third_resolver = $mock_builder->getMock();
+    $third_resolver = $resolver_mock_builder->getMock();
     $third_resolver->expects($this->never())
       ->method('resolve');
     $container->set('commerce.third_resolver', $third_resolver);
@@ -69,8 +74,8 @@ class ChainShopResolverTest extends UnitTestCase {
       $this->resolver->addResolver($container->get($id));
     }
 
-    $result = $this->resolver->resolve();
-    $this->assertEquals('testShop', $result);
+    $result = $this->resolver->resolve($order_mock);
+    $this->assertEquals('testLanguage', $result);
   }
 
 }

@@ -9,7 +9,7 @@ use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase as DrupalCommerceKernelT
 use Drupal\language\Entity\ConfigurableLanguage;
 
 /**
- * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\DefaultShopResolver
+ * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\Shop\DefaultShopResolver
  *
  * @group commerce_trustedshops
  */
@@ -39,7 +39,7 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
   /**
    * The default Trusted Shop resolver.
    *
-   * @var \Drupal\commerce_trustedshops\Resolver\DefaultShopResolver
+   * @var \Drupal\commerce_trustedshops\Resolver\Shop\DefaultShopResolver
    */
   protected $defaultShopResolver;
 
@@ -104,7 +104,7 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
   }
 
   /**
-   * @covers \Drupal\commerce_trustedshops\Resolver\DefaultShopResolver::resolve
+   * @covers \Drupal\commerce_trustedshops\Resolver\Shop\DefaultShopResolver::resolve
    *
    * @dataProvider providerDefaultShopAndLanguage
    */
@@ -143,7 +143,7 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
   }
 
   /**
-   * @covers \Drupal\commerce_trustedshops\Resolver\DefaultShopResolver::resolve
+   * @covers \Drupal\commerce_trustedshops\Resolver\Shop\DefaultShopResolver::resolve
    */
   public function testResolveWhitoutContext() {
     $shop = $this->defaultShopResolver->resolve();
@@ -153,7 +153,7 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
   }
 
   /**
-   * @covers \Drupal\commerce_trustedshops\Resolver\DefaultShopResolver::resolve
+   * @covers \Drupal\commerce_trustedshops\Resolver\Shop\DefaultShopResolver::resolve
    */
   public function testResolveNull() {
     $context = new Context($this->testStores[1], new Language(['id' => 'en']));

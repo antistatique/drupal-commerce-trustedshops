@@ -5,7 +5,7 @@ namespace Drupal\commerce_trustedshops\Plugin\Block;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface;
+use Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
 
@@ -23,7 +23,7 @@ class TrustedBadgeBlock extends BlockBase implements ContainerFactoryPluginInter
   /**
    * The chain resolver of Trusted Shop.
    *
-   * @var \Drupal\commerce_trustedshops\Resolver\ChainShopResolverInterface
+   * @var \Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface
    */
   protected $chainShopResolver;
 

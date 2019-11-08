@@ -2,15 +2,18 @@
 
 namespace Drupal\Tests\commerce_trustedshops\Functional;
 
+use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\Tests\commerce_order\Functional\OrderBrowserTestBase;
 use Drupal\commerce_trustedshops\Entity\Shop;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Tests the action to invite a custom to review an order.
  *
  * @group commerce_trustedshops
  */
-class InviteReviewTest extends OrderBrowserTestBase {
+class InviteReviewMultilanguageTest extends OrderBrowserTestBase {
 
   /**
    * The shop entity.
@@ -32,6 +35,8 @@ class InviteReviewTest extends OrderBrowserTestBase {
    * @var array
    */
   public static $modules = [
+    'locale',
+    'language',
     'commerce_trustedshops',
   ];
 
@@ -40,6 +45,32 @@ class InviteReviewTest extends OrderBrowserTestBase {
    */
   protected function setUp() {
     parent::setUp();
+
+    // Add a second language.
+    ConfigurableLanguage::create([
+      'id' => 'fr',
+      'label' => 'French',
+    ])->save();
+
+    // Add a third language.
+    ConfigurableLanguage::create([
+      'id' => 'de',
+      'label' => 'German',
+    ])->save();
+
+    // Add a langcode field on the shop entity.
+    $field_storage = FieldStorageConfig::create([
+      'field_name'  => 'langcode',
+      'entity_type' => 'commerce_order',
+      'type'        => 'text',
+    ]);
+    $field_storage->save();
+    $instance = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle'        => 'default',
+      'label'         => $this->randomMachineName(),
+    ]);
+    $instance->save();
 
     // Setup dummy TrustedShops Credentials API.
     $config = \Drupal::configFactory()->getEditable('commerce_trustedshops.settings');
@@ -68,6 +99,9 @@ class InviteReviewTest extends OrderBrowserTestBase {
       'store_id' => $this->store,
     ]);
     $this->order->save();
+
+    $this->store->set('name', 'My Store');
+    $this->store->save();
   }
 
   /**
@@ -80,67 +114,37 @@ class InviteReviewTest extends OrderBrowserTestBase {
     ], parent::getAdministratorPermissions());
   }
 
-  /**
-   * Tests admin or people with permission can view invite-to-review form.
-   */
-  public function testInviteReviewFormAccess() {
-    // Ensure even an admin can see the collection page.
-    $this->drupalGet('/admin/commerce/orders/' . $this->order->id() . '/trustedshops/invite_review_confirm');
-    $this->assertSession()->statusCodeEquals(200);
-
-    // Login with an user without the proper permission cannot see the shop
-    // admin view and receive a 403 error code.
-    $admin_user = $this->drupalCreateUser([]);
-    $this->drupalLogin($admin_user);
-    $this->drupalGet('/admin/commerce/orders/' . $this->order->id() . '/trustedshops/invite_review_confirm');
-    $this->assertSession()->statusCodeEquals(403);
-
-    // Logout and check that anonymous users cannot see the shop admin view
-    // and receive a 403 error code.
-    $this->drupalLogout();
-    $this->drupalGet('/admin/commerce/orders/' . $this->order->id() . '/trustedshops/invite_review_confirm');
-    $this->assertSession()->statusCodeEquals(403);
-  }
 
   /**
    * Tests warning messages when accessing the invite-to-review form
-   * on an un-configured/mis-configured TrustedShops API Credentials.
+   * on an Order with a language which has no TrustedShop ID in the same lang.
    */
-  public function testInviteReviewFormUnconfiguredCredential() {
-    // When TrustedShops API credentials are empty, a warning should be shown.
-    $config = \Drupal::configFactory()->getEditable('commerce_trustedshops.settings');
-    $config->set('api.username', '');
-    $config->set('api.password', '');
-    $config->save();
+  public function testInviteReviewFormUnconfiguredShopLanguage() {
+    // Setup a language for the TrustedShops ID.
+    $this->shop->set('langcode', 'fr');
+    $this->shop->save();
 
-    // Ensure even an admin can see the collection page.
-    $this->drupalGet('/admin/commerce/orders/' . $this->order->id() . '/trustedshops/invite_review_confirm');
-    $this->assertSession()->statusCodeEquals(403);
-    $this->assertSession()->pageTextContains('Please configure your TrustedShops credentials before inviting customer to review an order.');
-  }
-
-  /**
-   * Tests warning messages when accessing the invite-to-review form
-   * on an Order which has no TrustedShop ID configured.
-   */
-  public function testInviteReviewFormUnconfiguredShop() {
-    // Create another store which should not have a TrustedShop-IDs.
-    // Used to ensure edge-case on our tests.
-    $another_store = $this->createStore('Second store', 'second@example.com');
-
-    $this->order->setStore($another_store);
+    $this->order->set('langcode', 'de');
     $this->order->save();
 
     $this->drupalGet('/admin/commerce/orders/' . $this->order->id() . '/trustedshops/invite_review_confirm');
     $this->assertSession()->statusCodeEquals(403);
-    $this->assertSession()->pageTextContains('Please create a TrustedShop ID for the store Second store in Not specified before inviting customer to review an order.');
+    $this->assertSession()->pageTextContains('Please create a TrustedShop ID for the store My Store in German before inviting customer to review an order.');
   }
 
   /**
    * Tests inviting a customer to review an order.
    */
   public function testInviteReview() {
+    // Setup a language for the TrustedShops ID.
+    $this->shop->set('langcode', 'fr');
+    $this->shop->save();
+
+    $this->order->set('langcode', 'fr');
+    $this->order->save();
+
     $this->drupalGet('/admin/commerce/orders/' . $this->order->id() . '/trustedshops/invite_review_confirm');
+    $this->assertSession()->statusCodeEquals(200);
 
     // Check the integrity of the form.
     $this->assertSession()->optionExists('email_template', 'BEST_PRACTICE');
@@ -150,7 +154,7 @@ class InviteReviewTest extends OrderBrowserTestBase {
     $this->assertSession()->fieldDisabled('tsid');
     $this->assertSession()->fieldValueEquals('tsid', 'RCGABMX17MMTAF9V97G9DZEAKG1EILO0U');
     $this->assertSession()->fieldDisabled('language');
-    $this->assertSession()->fieldValueEquals('language', 'English (en)');
+    $this->assertSession()->fieldValueEquals('language', 'French (fr)');
   }
 
 }
