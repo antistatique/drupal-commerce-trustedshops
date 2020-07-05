@@ -1,7 +1,12 @@
 CHANGELOG
 ---------
 
-## 8.x-1.x-alpha2 (2019-08-11)
+## NEXT RELEASE
+ - replace drupal_ti by wengerk/docker-drupal-for-contrib
+ - Issue #3146835 by Project Update Bot: Automated Drupal 9 compatibility fixes
+ - Issue #3090752 by wengerk, Tolyan4ik: Drupal 9 Readiness
+
+## 8.x-1.x-alpha2 (2019-08-11)
  - Issue #3087963: Wrong language of Email sent by TrustedShops when using the Manual Trigger form
 
 ## 8.x-1.x-alpha1 (2019-08-10)

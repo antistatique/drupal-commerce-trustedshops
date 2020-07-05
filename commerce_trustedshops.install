@@ -11,14 +11,14 @@ use Drupal\Core\Url;
  * Implements hook_install().
  */
 function commerce_trustedshops_install() {
-  drupal_set_message(t("Commerce TrustedShops is installed and ready for action."));
+  \Drupal::messenger()->addMessage(t("Commerce TrustedShops is installed and ready for action."));
 
   // Rebuild the route cache before accessing new route.
   \Drupal::service("router.builder")->rebuild();
 
   // Display the new route for configuration.
   $url = Url::fromRoute('commerce_trustedshops.settings');
-  drupal_set_message(t('Commerce TrustedShops settings are available under <a href="@administer-page">Administer > TBD</a>', ['@administer-page' => $url->toString()]));
+  \Drupal::messenger()->addMessage(t('Commerce TrustedShops settings are available under <a href="@administer-page">Administer > TBD</a>', ['@administer-page' => $url->toString()]));
 }
 
 /**

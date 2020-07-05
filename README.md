@@ -38,11 +38,19 @@ TBD
 
 ## Versions
 
-Commerce TrustedShops is only available for Drupal 8 !
-The module is ready to be used in Drupal 8, there are no known issues.
+The version `8.x-1.x` is not compatible with Drupal `8.8.x`.
+Drupal `8.8.x` brings some breaking change with tests and so you
+must upgrade to `8.x-2.x` version of **Commerce Trustedshops**.
 
-This version should work with all Drupal 8 releases using Drush 9+,
-and it is always recommended keeping Drupal core installations up to date.
+Potion is available for both Drupal 8 & Drupal 9 !
+
+## Which version should I use?
+
+|Drupal Core|Potion|Drupal Commerce|
+|:---------:|:-----|:--------------|
+|8.7.x      |1.x   |2.8            |
+|8.8.x      |2.x   |2.8            |
+|9.x        |2.x   |2.20           |
 
 ## Dependencies
 
