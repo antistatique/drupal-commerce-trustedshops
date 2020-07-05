@@ -1,7 +1,7 @@
 CHANGELOG
 ---------
 
-## NEXT RELEASE
+## 8.x-2.0-rc1 (2020-07-05)
  - replace drupal_ti by wengerk/docker-drupal-for-contrib
  - Issue #3146835 by Project Update Bot: Automated Drupal 9 compatibility fixes
  - Issue #3090752 by wengerk, Tolyan4ik: Drupal 9 Readiness
