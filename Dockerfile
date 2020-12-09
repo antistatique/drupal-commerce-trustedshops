@@ -11,3 +11,6 @@ RUN composer require drupal/commerce:^2.20
 
 # Install the TrustedShops PHP SDK as required by the module
 RUN composer require antistatique/trustedshops-php-sdk:^1.0.0
+
+# Override the default template for PHPUnit testing.
+COPY phpunit.xml /opt/drupal/web/phpunit.xml
