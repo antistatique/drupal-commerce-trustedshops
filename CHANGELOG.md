@@ -1,7 +1,10 @@
 CHANGELOG
 ---------
 
-## 8.x-1.x-alpha2 (2019-08-11)
+## NEXT RELEASE
+ - Issue #3188848 by Aerzas: The configuration keys tested in the hook_requirements are wrong or obsolete
+
+## 8.x-1.x-alpha2 (2019-08-11)
  - Issue #3087963: Wrong language of Email sent by TrustedShops when using the Manual Trigger form
 
 ## 8.x-1.x-alpha1 (2019-08-10)
