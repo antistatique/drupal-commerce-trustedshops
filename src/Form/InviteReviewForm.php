@@ -290,6 +290,7 @@ class InviteReviewForm extends ConfirmFormBase {
    *   The Order to retrieve a TrustedShop from.
    *
    * @return \Drupal\commerce_trustedshops\Entity\ShopInterface|null
+   *   The shop.
    */
   private function getShopByOrder(OrderInterface $order) {
     // Get the TrustedShops-ID configured for the given $store.

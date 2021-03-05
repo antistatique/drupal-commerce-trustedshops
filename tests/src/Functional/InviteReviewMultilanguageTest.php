@@ -120,10 +120,11 @@ class InviteReviewMultilanguageTest extends OrderBrowserTestBase {
     ], parent::getAdministratorPermissions());
   }
 
-
   /**
-   * Tests warning messages when accessing the invite-to-review form
-   * on an Order with a language which has no TrustedShop ID in the same lang.
+   * Tests warning messages when accessing the invite-to-review form.
+   *
+   * Test on an Order with a language which has no TrustedShop ID in that
+   * same lang.
    */
   public function testInviteReviewFormUnconfiguredShopLanguage() {
     // Setup a language for the TrustedShops ID.

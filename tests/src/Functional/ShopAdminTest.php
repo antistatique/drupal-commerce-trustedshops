@@ -221,11 +221,9 @@ class ShopAdminTest extends CommerceBrowserTestBase {
 
     $this->drupalGet($shop->toUrl('delete-form'));
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains(t('Are you sure you want to delete the trustedshops-ids @label?', [
-      '@label' => $shop->label(),
-    ]));
+    $this->assertSession()->pageTextContains(sprintf('Are you sure you want to delete the trustedshops-ids %s?', $shop->label()));
     $this->assertSession()->pageTextContains('This action cannot be undone.');
-    $this->submitForm([], t('Delete'));
+    $this->submitForm([], 'Delete');
 
     $this->container->get('entity_type.manager')->getStorage('commerce_trustedshops_shop')->resetCache([$shop->id()]);
     $shop_exists = (bool) Shop::load($shop->id());
