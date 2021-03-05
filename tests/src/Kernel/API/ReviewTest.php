@@ -27,6 +27,7 @@ class ReviewTest extends APITestBase {
     parent::setUp();
 
     $config_factory = $this->container->get('config.factory');
+    $event_dispatcher = $this->container->get('event_dispatcher');
 
     // Setup dummy TrustedShops Credentials API.
     $config = $config_factory->getEditable('commerce_trustedshops.settings');
@@ -35,7 +36,7 @@ class ReviewTest extends APITestBase {
     $config->set('api.password', 'qwertz');
     $config->save();
 
-    $this->trustedShopsReview = new TrustedShopsReview($this->trustedShops, $config_factory);
+    $this->trustedShopsReview = new TrustedShopsReview($this->trustedShops, $config_factory, $event_dispatcher);
   }
 
   /**
