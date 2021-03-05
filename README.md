@@ -11,7 +11,7 @@ Still under active development.
 ***Everything contained in this document is in draft form and subject to change at any time and provided for information purposes only***
 
 - Display Trustedbadge
-- Customize the Trustebadge 
+- Customize the Trustebadge
 - Collect Reviews on orders
 - *soon* Display Shop Review Sticker
 - *soon* Display the Review Collector on products
@@ -46,7 +46,7 @@ Potion is available for both Drupal 8 & Drupal 9 !
 
 ## Which version should I use?
 
-|Drupal Core|Potion|Drupal Commerce|
+|Drupal Core|Commerce TrustedShops|Drupal Commerce|
 |:---------:|:-----|:--------------|
 |8.7.x      |1.x   |2.8            |
 |8.8.x      |2.x   |2.8            |

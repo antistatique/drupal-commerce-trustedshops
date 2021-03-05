@@ -7,7 +7,6 @@ use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce_trustedshops\Entity\ShopInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Language\LanguageInterface;
 
 /**
  * Allow merchants to trigger review request emails to customers.
@@ -74,7 +73,7 @@ class Review {
     // Does the Test environment is enabled?
     $test_mode = $config->get('test_mode') === TRUE ? 'api-qa' : NULL;
 
-    // @todo: Improve Antistatique\TrustedShops\TrustedShops to allow toggle
+    // @todo Improve Antistatique\TrustedShops\TrustedShops to allow toggle
     // enable/disable of api-qa without passing in constructor.
     $this->trustedShops->setEndpoint($test_mode, 'restricted');
     $this->trustedShops->setApiCredentials($username, $password);

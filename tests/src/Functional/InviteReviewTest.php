@@ -9,6 +9,7 @@ use Drupal\commerce_trustedshops\Entity\Shop;
  * Tests the action to invite a custom to review an order.
  *
  * @group commerce_trustedshops
+ * @group commerce_trustedshops_functional
  */
 class InviteReviewTest extends OrderBrowserTestBase {
 
@@ -108,8 +109,9 @@ class InviteReviewTest extends OrderBrowserTestBase {
   }
 
   /**
-   * Tests warning messages when accessing the invite-to-review form
-   * on an un-configured/mis-configured TrustedShops API Credentials.
+   * Tests warning messages when accessing the invite-to-review form.
+   *
+   * Test on an un-configured/mis-configured TrustedShops API Credentials.
    */
   public function testInviteReviewFormUnconfiguredCredential() {
     // When TrustedShops API credentials are empty, a warning should be shown.
@@ -125,8 +127,9 @@ class InviteReviewTest extends OrderBrowserTestBase {
   }
 
   /**
-   * Tests warning messages when accessing the invite-to-review form
-   * on an Order which has no TrustedShop ID configured.
+   * Tests warning messages when accessing the invite-to-review form.
+   *
+   * Tests on an Order which has no TrustedShop ID configured.
    */
   public function testInviteReviewFormUnconfiguredShop() {
     // Create another store which should not have a TrustedShop-IDs.
