@@ -9,6 +9,7 @@ use Drupal\commerce_trustedshops\Entity\Shop;
  * Tests the commerce_trustedshops_shop entity forms.
  *
  * @group commerce_trustedshops
+ * @group commerce_trustedshops_functional
  */
 class ShopAdminTest extends CommerceBrowserTestBase {
 

@@ -12,6 +12,7 @@ use Drupal\field\Entity\FieldStorageConfig;
  * Tests the action to invite a custom to review an order.
  *
  * @group commerce_trustedshops
+ * @group commerce_trustedshops_functional
  */
 class InviteReviewMultilanguageTest extends OrderBrowserTestBase {
 

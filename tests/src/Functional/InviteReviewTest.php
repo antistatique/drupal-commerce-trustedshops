@@ -9,6 +9,7 @@ use Drupal\commerce_trustedshops\Entity\Shop;
  * Tests the action to invite a custom to review an order.
  *
  * @group commerce_trustedshops
+ * @group commerce_trustedshops_functional
  */
 class InviteReviewTest extends OrderBrowserTestBase {
 
