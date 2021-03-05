@@ -41,7 +41,7 @@ function commerce_trustedshops_requirements($phase) {
 
   $config = \Drupal::config('commerce_trustedshops.settings');
   if ($phase == 'runtime') {
-    if (empty($config->get('api.user'))) {
+    if (empty($config->get('api.username'))) {
       $requirements['commerce_trustedshops_user'] = [
         'title' => t('Commerce TrustedShops API Username'),
         'value' => t('Missing'),
@@ -52,7 +52,7 @@ function commerce_trustedshops_requirements($phase) {
       ];
     }
 
-    if (empty($config->get('api.pass'))) {
+    if (empty($config->get('api.password'))) {
       $requirements['commerce_trustedshops_pass'] = [
         'title' => t('Commerce TrustedShops API Password'),
         'value' => t('Missing'),
