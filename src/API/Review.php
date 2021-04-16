@@ -4,9 +4,13 @@ namespace Drupal\commerce_trustedshops\API;
 
 use Antistatique\TrustedShops\TrustedShops;
 use Drupal\commerce_order\Entity\OrderInterface;
+use Drupal\commerce_product\Entity\ProductVariationInterface;
 use Drupal\commerce_trustedshops\Entity\ShopInterface;
+use Drupal\commerce_trustedshops\Event\AlterProductDataEvent;
+use Drupal\commerce_trustedshops\Event\TrustedShopsEvents;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Allow merchants to trigger review request emails to customers.
@@ -31,16 +35,26 @@ class Review {
   protected $configFactory;
 
   /**
+   * The event dispatcher.
+   *
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
+  protected $eventDispatcher;
+
+  /**
    * Construct a new Review object.
    *
    * @param \Antistatique\TrustedShops\TrustedShops $trusted_shops
    *   The TrustedShops API Wrapper.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
+   *   The event dispatcher.
    */
-  public function __construct(TrustedShops $trusted_shops, ConfigFactoryInterface $config_factory) {
+  public function __construct(TrustedShops $trusted_shops, ConfigFactoryInterface $config_factory, EventDispatcherInterface $event_dispatcher) {
     $this->trustedShops = $trusted_shops;
     $this->configFactory = $config_factory;
+    $this->eventDispatcher = $event_dispatcher;
   }
 
   /**
@@ -80,17 +94,26 @@ class Review {
 
     $trusted_products = [];
     foreach ($order->getItems() as $order_item) {
-      /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $purchased_entity */
-      $purchased_entity = $order_item->getPurchasedEntity();
-      /** @var \Drupal\commerce_product\Entity\ProductInterface $product */
-      $product = $purchased_entity->getProduct();
-
-      $trusted_products[] = [
-        'sku'  => $purchased_entity->sku->value,
-        'name' => $purchased_entity->getTitle(),
-        'url'  => $product->toUrl('canonical', ['absolute' => TRUE])
-          ->toString(),
+      $trusted_product = [
+        'name' => $order_item->getTitle(),
       ];
+
+      $purchased_entity = $order_item->getPurchasedEntity();
+
+      if ($purchased_entity instanceof ProductVariationInterface) {
+        $product = $purchased_entity->getProduct();
+
+        $trusted_product['sku'] = $purchased_entity->getSku();
+        $trusted_product['url'] = $product
+          ? $product->toUrl('canonical', ['absolute' => TRUE])->toString()
+          : $purchased_entity->toUrl('canonical', ['absolute' => TRUE])->toString();
+      }
+
+      // Open product data to alterations.
+      $event = new AlterProductDataEvent($trusted_product, $order_item);
+      $this->eventDispatcher->dispatch(TrustedShopsEvents::ALTER_PRODUCT_DATA, $event);
+
+      $trusted_products[] = $event->getProductData();
     }
 
     /** @var \Drupal\address\AddressInterface $address */
