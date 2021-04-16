@@ -120,6 +120,7 @@ abstract class APITestBase extends CommerceKernelTestBase {
       'placed' => 635879700,
     ]);
     $this->order->save();
+    $this->order = $this->reloadEntity($this->order);
     $this->order->recalculateTotalPrice();
 
     $this->shop = Shop::create([

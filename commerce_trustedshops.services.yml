@@ -26,4 +26,4 @@ services:
 
   commerce_trustedshops.api.review:
     class: Drupal\commerce_trustedshops\API\Review
-    arguments: ['@commerce_trustedshops.api', '@config.factory']
+    arguments: ['@commerce_trustedshops.api', '@config.factory', '@event_dispatcher']
