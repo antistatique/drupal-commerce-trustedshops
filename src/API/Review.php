@@ -111,7 +111,7 @@ class Review {
 
       // Open product data to alterations.
       $event = new AlterProductDataEvent($trusted_product, $order_item);
-      $this->eventDispatcher->dispatch($event, TrustedShopsEvents::ALTER_PRODUCT_DATA);
+      $this->eventDispatcher->dispatch(TrustedShopsEvents::ALTER_PRODUCT_DATA, $event);
 
       $trusted_products[] = $event->getProductData();
     }
