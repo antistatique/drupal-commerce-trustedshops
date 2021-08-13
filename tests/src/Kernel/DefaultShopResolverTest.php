@@ -120,8 +120,8 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
     $shop = $this->defaultShopResolver->resolve($context);
     $expected_shop = $shop_storage->load($expected_shop_id);
 
-    $this->assertEqual($shop->id(), $expected_shop->id());
-    $this->assertEqual($shop->get('tsid')->value, $expected_tsid);
+    $this->assertEquals($shop->id(), $expected_shop->id());
+    $this->assertEquals($shop->get('tsid')->value, $expected_tsid);
   }
 
   /**
@@ -151,7 +151,7 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
     $shop = $this->defaultShopResolver->resolve();
     $shop_storage = $this->entityTypeManager->getStorage('commerce_trustedshops_shop');
     $expected_shop = $shop_storage->load($this->testShops[1]->id());
-    $this->assertEqual($expected_shop, $shop);
+    $this->assertEquals($expected_shop, $shop);
   }
 
   /**
