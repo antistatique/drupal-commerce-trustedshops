@@ -49,7 +49,7 @@ class InviteReviewMultilanguageTest extends OrderBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Add a second language.

@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        drupal_version: [ '8.8', '8.9', '9.0', '9.1', '9.2' ]
+        drupal_version: [ '8.9', '9.0', '9.1', '9.2' ]
         module: ['commerce_trustedshops']
         experimental: [ false ]
         include:
@@ -38,7 +38,7 @@ jobs:
 
     strategy:
       matrix:
-        drupal_version: [ '8.8', '8.9', '9.0', '9.1', '9.2' ]
+        drupal_version: [ '8.9', '9.0', '9.1', '9.2' ]
         module: [ 'commerce_trustedshops' ]
         experimental: [ false ]
         include:

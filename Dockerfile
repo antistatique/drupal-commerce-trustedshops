@@ -7,7 +7,7 @@ RUN docker-php-ext-install bcmath
 ENV COMPOSER_MEMORY_LIMIT=-1
 
 # Install Drupal Commerce as required by the module
-RUN composer require drupal/commerce:^2.20
+RUN composer require drupal/commerce:^2.26
 
 # Install the TrustedShops PHP SDK as required by the module
 RUN composer require antistatique/trustedshops-php-sdk:^1.0.0

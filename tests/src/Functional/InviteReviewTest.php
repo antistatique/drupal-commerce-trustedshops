@@ -44,7 +44,7 @@ class InviteReviewTest extends OrderBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Setup dummy TrustedShops Credentials API.
