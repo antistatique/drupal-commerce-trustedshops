@@ -7,6 +7,7 @@ use Drupal\Core\Language\Language;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase as DrupalCommerceKernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**
  * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\Shop\DefaultShopResolver
@@ -14,6 +15,7 @@ use Drupal\language\Entity\ConfigurableLanguage;
  * @group commerce_trustedshops
  */
 class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
+  use DeprecationSuppressionTrait;
 
   /**
    * The Entity Type Manager.

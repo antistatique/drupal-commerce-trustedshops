@@ -11,6 +11,7 @@ use Drupal\commerce_product\Entity\Product;
 use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\commerce_product\Entity\ProductVariationType;
 use Drupal\profile\Entity\Profile;
+use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**
  * @coversDefaultClass \Drupal\commerce_trustedshops\Plugin\Commerce\CheckoutPane\ReviewCollector
@@ -18,6 +19,7 @@ use Drupal\profile\Entity\Profile;
  * @group commerce_trustedshops
  */
 class ReviewCollectorTest extends DrupalCommerceKernelTestBase {
+  use DeprecationSuppressionTrait;
 
   /**
    * The shop entity.

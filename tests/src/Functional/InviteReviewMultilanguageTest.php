@@ -7,6 +7,7 @@ use Drupal\Tests\commerce_order\Functional\OrderBrowserTestBase;
 use Drupal\commerce_trustedshops\Entity\Shop;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**
  * Tests the action to invite a custom to review an order.
@@ -15,6 +16,8 @@ use Drupal\field\Entity\FieldStorageConfig;
  * @group commerce_trustedshops_functional
  */
 class InviteReviewMultilanguageTest extends OrderBrowserTestBase {
+
+  use DeprecationSuppressionTrait;
 
   /**
    * The shop entity.
