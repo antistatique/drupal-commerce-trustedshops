@@ -3,8 +3,10 @@
 namespace Drupal\Tests\commerce_trustedshops\Traits;
 
 /**
- * Original DeprecationSuppressionTrait of Drupal Commerce is not compatible
- * with PHP 8.
+ * Override DeprecationSuppressionTrait of Drupal Commerce.
+ *
+ * The original DeprecationSuppressionTrait from Drupal Commerce is not
+ * compatible with PHP 8.
  *
  * @see \Drupal\Tests\commerce\Traits\DeprecationSuppressionTrait;
  */
