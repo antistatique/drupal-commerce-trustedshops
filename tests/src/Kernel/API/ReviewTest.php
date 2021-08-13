@@ -64,7 +64,7 @@ class ReviewTest extends APITestBase {
     $now->setTimezone(new \DateTimeZone('UTC'));
 
     $this->eventDispatcher
-      ->dispatch(TrustedShopsEvents::ALTER_PRODUCT_DATA, Argument::type(AlterProductDataEvent::class))
+      ->dispatch(Argument::type(AlterProductDataEvent::class), TrustedShopsEvents::ALTER_PRODUCT_DATA)
       ->shouldBeCalled();
 
     $this->trustedShops->expects($this->once())->method('post')
