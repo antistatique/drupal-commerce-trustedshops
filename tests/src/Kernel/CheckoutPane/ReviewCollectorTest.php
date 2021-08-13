@@ -61,7 +61,7 @@ class ReviewCollectorTest extends DrupalCommerceKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->renderer = $this->container->get('renderer');
