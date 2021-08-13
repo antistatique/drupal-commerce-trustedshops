@@ -6,6 +6,9 @@ RUN docker-php-ext-install bcmath
 
 ENV COMPOSER_MEMORY_LIMIT=-1
 
+# Disable deprecation notice because of Drupal Commerce hard-dependency.
+ENV SYMFONY_DEPRECATIONS_HELPER=disabled
+
 # Install Drupal Commerce as required by the module
 RUN composer require drupal/commerce:^2.26 'drupal/inline_entity_form:^1.0@RC'
 
