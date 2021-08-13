@@ -7,6 +7,7 @@ use Drupal\Core\Language\Language;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase as DrupalCommerceKernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**
  * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\Shop\DefaultShopResolver
@@ -14,6 +15,7 @@ use Drupal\language\Entity\ConfigurableLanguage;
  * @group commerce_trustedshops
  */
 class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
+  use DeprecationSuppressionTrait;
 
   /**
    * The Entity Type Manager.
@@ -59,7 +61,7 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installEntitySchema('commerce_trustedshops_shop');
@@ -118,8 +120,8 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
     $shop = $this->defaultShopResolver->resolve($context);
     $expected_shop = $shop_storage->load($expected_shop_id);
 
-    $this->assertEqual($shop->id(), $expected_shop->id());
-    $this->assertEqual($shop->get('tsid')->value, $expected_tsid);
+    $this->assertEquals($shop->id(), $expected_shop->id());
+    $this->assertEquals($shop->get('tsid')->value, $expected_tsid);
   }
 
   /**
@@ -149,7 +151,7 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
     $shop = $this->defaultShopResolver->resolve();
     $shop_storage = $this->entityTypeManager->getStorage('commerce_trustedshops_shop');
     $expected_shop = $shop_storage->load($this->testShops[1]->id());
-    $this->assertEqual($expected_shop, $shop);
+    $this->assertEquals($expected_shop, $shop);
   }
 
   /**

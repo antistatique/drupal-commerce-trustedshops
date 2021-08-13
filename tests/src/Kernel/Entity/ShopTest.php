@@ -4,6 +4,7 @@ namespace Drupal\Tests\commerce_trustedshops\Kernel\Entity;
 
 use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase;
 use Drupal\commerce_trustedshops\Entity\Shop;
+use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**
  * Tests the Shop entity.
@@ -13,6 +14,8 @@ use Drupal\commerce_trustedshops\Entity\Shop;
  * @group commerce_trustedshops
  */
 class ShopTest extends CommerceKernelTestBase {
+
+  use DeprecationSuppressionTrait;
 
   /**
    * A sample user.
@@ -33,7 +36,7 @@ class ShopTest extends CommerceKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installEntitySchema('commerce_trustedshops_shop');
