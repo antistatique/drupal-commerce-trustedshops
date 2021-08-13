@@ -34,7 +34,7 @@ class ReviewTest extends APITestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $config_factory = $this->container->get('config.factory');

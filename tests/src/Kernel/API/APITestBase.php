@@ -11,11 +11,14 @@ use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\commerce_product\Entity\ProductVariationType;
 use Drupal\profile\Entity\Profile;
 use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase;
+use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**
  * Provides a base class for Commerce kernel tests.
  */
 abstract class APITestBase extends CommerceKernelTestBase {
+
+  use DeprecationSuppressionTrait;
 
   /**
    * The shop entity.
@@ -59,7 +62,7 @@ abstract class APITestBase extends CommerceKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installEntitySchema('profile');

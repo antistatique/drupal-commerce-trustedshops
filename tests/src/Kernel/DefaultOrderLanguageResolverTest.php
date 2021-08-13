@@ -16,6 +16,7 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\profile\Entity\Profile;
 use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase as DrupalCommerceKernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**
  * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\OrderLanguage\DefaultOrderLanguageResolver
@@ -23,6 +24,7 @@ use Drupal\language\Entity\ConfigurableLanguage;
  * @group commerce_trustedshops
  */
 class DefaultOrderLanguageResolverTest extends DrupalCommerceKernelTestBase {
+  use DeprecationSuppressionTrait;
 
   /**
    * The Entity Type Manager.
@@ -85,7 +87,7 @@ class DefaultOrderLanguageResolverTest extends DrupalCommerceKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->setupMultilingual();
 
