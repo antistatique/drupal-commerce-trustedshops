@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - add dependabot for Github Action dependency
+- add upgrade-status check
 
 ### Removed
 - remove trigger github actions on every pull-request, keep only push
