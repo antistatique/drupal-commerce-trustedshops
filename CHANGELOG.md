@@ -12,12 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - move out from Travis CI to Github Actions
 - modernize the Code Styles integration
 - update changelog form to follow keepachangelog format
+- use PHP 8.1 for linters
+- bump testing using drupal/commerce 2.26 => 2.33
 
 ### Added
 - add dependabot for Github Action dependency
 
 ### Removed
 - remove trigger github actions on every pull-request, keep only push
+- drop support of drupal 8.8 & 8.9
+- drop support of drupal below 9.3.x
 
 ## [2.0.0-rc1] - 2020-07-05
 ### Changed

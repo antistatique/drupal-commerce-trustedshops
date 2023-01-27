@@ -12,13 +12,9 @@ jobs:
 
     strategy:
       matrix:
-        drupal_version: [ '8.9', '9.0', '9.1', '9.2' ]
+        drupal_version: ['9.3', '9.4', '9.5']
         module: ['commerce_trustedshops']
         experimental: [ false ]
-        include:
-          - drupal_version: '9.3'
-            module: 'commerce_trustedshops'
-            experimental: true
 
     steps:
       - uses: actions/checkout@v1
@@ -37,13 +33,9 @@ jobs:
 
     strategy:
       matrix:
-        drupal_version: [ '8.9', '9.0', '9.1', '9.2' ]
+        drupal_version: ['9.3', '9.4', '9.5']
         module: [ 'commerce_trustedshops' ]
         experimental: [ false ]
-        include:
-          - drupal_version: '9.3'
-            module: 'commerce_trustedshops'
-            experimental: true
 
     steps:
       - uses: actions/checkout@v1
