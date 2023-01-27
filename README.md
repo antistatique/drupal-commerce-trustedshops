@@ -38,11 +38,7 @@ TBD
 
 ## Versions
 
-The version `8.x-1.x` is not compatible with Drupal `8.8.x`.
-Drupal `8.8.x` brings some breaking change with tests and so you
-must upgrade to `8.x-2.x` version of **Commerce Trustedshops**.
-
-Potion is available for both Drupal 8 & Drupal 9 !
+Commerce TrustedShops is available for both Drupal 8 & Drupal 9 & Drupal 10 !
 
 ## Which version should I use?
 
@@ -51,6 +47,7 @@ Potion is available for both Drupal 8 & Drupal 9 !
 |    8.7.x    | 1.x                   | 2.8             |
 |    8.8.x    | 2.x                   | 2.8             |
 |     9.x     | 2.x                   | 2.33            |
+|    10.x     | 3.x                   | 2.33            |
 
 ## Dependencies
 
