@@ -45,7 +45,7 @@ class ReviewCollectorTest extends DrupalCommerceKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'entity_reference_revisions',
     'state_machine',
     'profile',

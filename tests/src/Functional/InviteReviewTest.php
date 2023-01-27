@@ -34,7 +34,7 @@ class InviteReviewTest extends OrderBrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'commerce_trustedshops',
   ];
 
