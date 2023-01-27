@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - add dependabot for Github Action dependency
 
+### Removed
+- remove trigger github actions on every pull-request, keep only push
+
 ## [2.0.0-rc1] - 2020-07-05
 ### Changed
 - replace drupal_ti by wengerk/docker-drupal-for-contrib
