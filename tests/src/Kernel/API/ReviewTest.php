@@ -7,6 +7,7 @@ use Drupal\commerce_trustedshops\Event\AlterProductDataEvent;
 use Drupal\commerce_trustedshops\Event\TrustedShopsEvents;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Prophecy\Prophet;
 
 /**
  * Tests the Shop entity.
@@ -32,13 +33,21 @@ class ReviewTest extends APITestBase {
   protected $trustedShopsReview;
 
   /**
+   * The prophecy object.
+   *
+   * @var \Prophecy\Prophet
+   */
+  private $prophet;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
     parent::setUp();
 
+    $this->prophet = new Prophet();
     $config_factory = $this->container->get('config.factory');
-    $this->eventDispatcher = $this->prophesize(EventDispatcherInterface::class);
+    $this->eventDispatcher = $this->prophet->prophesize(EventDispatcherInterface::class);
 
     // Setup dummy TrustedShops Credentials API.
     $config = $config_factory->getEditable('commerce_trustedshops.settings');
@@ -54,6 +63,15 @@ class ReviewTest extends APITestBase {
 
     $this->trustedShops->expects($this->once())->method('setApiCredentials')
       ->with('john.doe@example.org', 'qwertz');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function tearDown(): void {
+    parent::tearDown();
+
+    $this->prophet->checkPredictions();
   }
 
   /**

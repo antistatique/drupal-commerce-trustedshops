@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - re-enable PHPUnit Symfony Deprecation notice
 
+### Fixed
+- fix PHPUnit deprecated prophecy integration
+
 ## [2.0.0] - 2023-01-27
 ### Fixed
 - Issue #3201543 by Aerzas, wengerk: Order items may not be product variations
