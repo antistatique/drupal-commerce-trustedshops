@@ -68,7 +68,9 @@ class DefaultShopResolver implements ShopResolverInterface {
    * {@inheritdoc}
    */
   public function resolve(Context $context = NULL) {
-    $query = $this->shopStorage->getQuery();
+    $query = $this->shopStorage
+      ->getQuery()
+      ->accessCheck(TRUE);
 
     /** @var \Drupal\commerce_store\Entity\StoreInterface $store */
     $store = $this->currentStore->getStore();
