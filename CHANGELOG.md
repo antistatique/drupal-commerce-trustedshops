@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix usage of deprecated Symfony\Component\EventDispatcher\Event in favor of Symfony\Contracts\EventDispatcher\Event
 - fix deprecation of theme classy for Drupal 10 compatibilities
 - fix tests self::modules property must be declared protected
+- fix Symfony 4.4 event dispatcher parameter order change
 
 ## [2.0.0] - 2023-01-27
 ### Fixed

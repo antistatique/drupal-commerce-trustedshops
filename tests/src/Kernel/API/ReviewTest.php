@@ -82,7 +82,8 @@ class ReviewTest extends APITestBase {
     $now->setTimezone(new \DateTimeZone('UTC'));
 
     $this->eventDispatcher
-      ->dispatch(TrustedShopsEvents::ALTER_PRODUCT_DATA, Argument::type(AlterProductDataEvent::class))
+      ->dispatch(Argument::type(AlterProductDataEvent::class), TrustedShopsEvents::ALTER_PRODUCT_DATA)
+      ->willReturnArgument(0)
       ->shouldBeCalled();
 
     $this->trustedShops->expects($this->once())->method('post')
@@ -135,6 +136,11 @@ class ReviewTest extends APITestBase {
       $order_item->purchased_entity = NULL;
       $order_item->save();
     }
+
+    $this->eventDispatcher
+      ->dispatch(Argument::type(AlterProductDataEvent::class), TrustedShopsEvents::ALTER_PRODUCT_DATA)
+      ->willReturnArgument(0)
+      ->shouldBeCalled();
 
     $this->trustedShops->expects($this->once())->method('post')
       ->with('shops/RCGABMX17MMTAF9V97G9DZEAKG1EILO0U/reviews/trigger.json', [
