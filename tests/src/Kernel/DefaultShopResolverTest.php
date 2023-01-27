@@ -50,7 +50,7 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'locale',
     'language',
     'content_translation',

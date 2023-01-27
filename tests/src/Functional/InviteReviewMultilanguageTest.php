@@ -38,7 +38,7 @@ class InviteReviewMultilanguageTest extends OrderBrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'locale',
     'language',
     'commerce_trustedshops',
@@ -47,7 +47,7 @@ class InviteReviewMultilanguageTest extends OrderBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'starterkit_theme';
 
   /**
    * {@inheritdoc}

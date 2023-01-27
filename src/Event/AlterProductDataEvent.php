@@ -3,7 +3,7 @@
 namespace Drupal\commerce_trustedshops\Event;
 
 use Drupal\commerce_order\Entity\OrderItemInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Event to alter TrustedShops product data.

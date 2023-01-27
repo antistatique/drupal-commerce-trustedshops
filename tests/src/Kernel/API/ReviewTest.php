@@ -7,6 +7,7 @@ use Drupal\commerce_trustedshops\Event\AlterProductDataEvent;
 use Drupal\commerce_trustedshops\Event\TrustedShopsEvents;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Prophecy\Prophet;
 
 /**
  * Tests the Shop entity.
@@ -32,13 +33,21 @@ class ReviewTest extends APITestBase {
   protected $trustedShopsReview;
 
   /**
+   * The prophecy object.
+   *
+   * @var \Prophecy\Prophet
+   */
+  private $prophet;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
     parent::setUp();
 
+    $this->prophet = new Prophet();
     $config_factory = $this->container->get('config.factory');
-    $this->eventDispatcher = $this->prophesize(EventDispatcherInterface::class);
+    $this->eventDispatcher = $this->prophet->prophesize(EventDispatcherInterface::class);
 
     // Setup dummy TrustedShops Credentials API.
     $config = $config_factory->getEditable('commerce_trustedshops.settings');
@@ -57,6 +66,15 @@ class ReviewTest extends APITestBase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  protected function tearDown(): void {
+    parent::tearDown();
+
+    $this->prophet->checkPredictions();
+  }
+
+  /**
    * @covers ::triggerShopReview
    */
   public function testTriggerShopReview() {
@@ -64,7 +82,8 @@ class ReviewTest extends APITestBase {
     $now->setTimezone(new \DateTimeZone('UTC'));
 
     $this->eventDispatcher
-      ->dispatch(TrustedShopsEvents::ALTER_PRODUCT_DATA, Argument::type(AlterProductDataEvent::class))
+      ->dispatch(Argument::type(AlterProductDataEvent::class), TrustedShopsEvents::ALTER_PRODUCT_DATA)
+      ->willReturnArgument(0)
       ->shouldBeCalled();
 
     $this->trustedShops->expects($this->once())->method('post')
@@ -117,6 +136,11 @@ class ReviewTest extends APITestBase {
       $order_item->purchased_entity = NULL;
       $order_item->save();
     }
+
+    $this->eventDispatcher
+      ->dispatch(Argument::type(AlterProductDataEvent::class), TrustedShopsEvents::ALTER_PRODUCT_DATA)
+      ->willReturnArgument(0)
+      ->shouldBeCalled();
 
     $this->trustedShops->expects($this->once())->method('post')
       ->with('shops/RCGABMX17MMTAF9V97G9DZEAKG1EILO0U/reviews/trigger.json', [
