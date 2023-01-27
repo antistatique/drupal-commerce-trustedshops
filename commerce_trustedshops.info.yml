@@ -2,7 +2,7 @@ name: Commerce TrustedShops
 description: 'Provides Commerce integration for TrustedShops.'
 package: 'Commerce (contrib)'
 type: module
-core_version_requirement: ^9.3
+core_version_requirement: ^9.3 || ^10
 
 dependencies:
   - drupal:commerce
