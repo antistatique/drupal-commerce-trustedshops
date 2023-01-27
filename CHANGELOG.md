@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix PHPUnit deprecated prophecy integration
 - fix deprecated uncalling accessCheck relying on entity queries to check access
 - fix usage of deprecated Symfony\Component\EventDispatcher\Event in favor of Symfony\Contracts\EventDispatcher\Event
+- fix deprecation of theme classy for Drupal 10 compatibilities
 
 ## [2.0.0] - 2023-01-27
 ### Fixed

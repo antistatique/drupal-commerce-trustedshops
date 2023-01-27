@@ -47,7 +47,7 @@ class InviteReviewMultilanguageTest extends OrderBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'starterkit_theme';
 
   /**
    * {@inheritdoc}
