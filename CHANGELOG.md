@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - modernize the Code Styles integration
 - update changelog form to follow keepachangelog format
 
+### Added
+- add dependabot for Github Action dependency
+
 ### Removed
 - remove trigger github actions on every pull-request, keep only push
 
