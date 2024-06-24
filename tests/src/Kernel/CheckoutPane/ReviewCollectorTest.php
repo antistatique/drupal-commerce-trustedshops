@@ -147,7 +147,7 @@ class ReviewCollectorTest extends DrupalCommerceKernelTestBase {
       '#order' => $this->order,
     ];
     $output = $this->renderer->renderRoot($render);
-    $this->assertEquals($expected_output, $output);
+    $this->assertSame($expected_output, (string) $output);
   }
 
 }
