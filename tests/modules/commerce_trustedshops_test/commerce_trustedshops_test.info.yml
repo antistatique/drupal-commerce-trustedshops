@@ -2,7 +2,7 @@ name: Commerce TrustedShops Test
 description: 'Support module for Commerce TrustedShops.'
 package: Testing
 type: module
-core_version_requirement: ^9.3 || ^10
+core_version_requirement: ^9.5 || ^10
 
 dependencies:
   - drupal:commerce_trustedshops

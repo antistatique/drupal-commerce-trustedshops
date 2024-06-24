@@ -1,4 +1,4 @@
-ARG BASE_IMAGE_TAG=9.4
+ARG BASE_IMAGE_TAG=10.1
 FROM wengerk/drupal-for-contrib:${BASE_IMAGE_TAG}
 
 # Drupal Commerce 2.20+ requires bcmath extensions.
