@@ -2,11 +2,11 @@
 
 namespace Drupal\Tests\commerce_trustedshops\Functional;
 
-use Drupal\language\Entity\ConfigurableLanguage;
-use Drupal\Tests\commerce_order\Functional\OrderBrowserTestBase;
 use Drupal\commerce_trustedshops\Entity\Shop;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\Tests\commerce_order\Functional\OrderBrowserTestBase;
 use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**

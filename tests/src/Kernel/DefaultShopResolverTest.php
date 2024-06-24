@@ -5,8 +5,8 @@ namespace Drupal\Tests\commerce_trustedshops\Kernel;
 use Drupal\commerce_trustedshops\Context;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase as DrupalCommerceKernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase as DrupalCommerceKernelTestBase;
 use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**

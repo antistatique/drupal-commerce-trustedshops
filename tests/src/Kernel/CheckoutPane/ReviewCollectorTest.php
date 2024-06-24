@@ -2,15 +2,15 @@
 
 namespace Drupal\Tests\commerce_trustedshops\Kernel\CheckoutPane;
 
-use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase as DrupalCommerceKernelTestBase;
-use Drupal\commerce_trustedshops\Entity\Shop;
 use Drupal\commerce_order\Entity\Order;
 use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\commerce_price\Price;
 use Drupal\commerce_product\Entity\Product;
 use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\commerce_product\Entity\ProductVariationType;
+use Drupal\commerce_trustedshops\Entity\Shop;
 use Drupal\profile\Entity\Profile;
+use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase as DrupalCommerceKernelTestBase;
 use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**

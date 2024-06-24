@@ -2,12 +2,12 @@
 
 namespace Drupal\commerce_trustedshops\Plugin\Block;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface;
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Access\AccessResult;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides block to implement the TrustedBadge.

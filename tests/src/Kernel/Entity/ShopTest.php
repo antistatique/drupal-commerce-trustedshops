@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\commerce_trustedshops\Kernel\Entity;
 
-use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase;
 use Drupal\commerce_trustedshops\Entity\Shop;
+use Drupal\Tests\commerce\Kernel\CommerceKernelTestBase;
 use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**

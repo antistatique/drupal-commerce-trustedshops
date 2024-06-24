@@ -2,22 +2,22 @@
 
 namespace Drupal\commerce_trustedshops\Form;
 
+use Drupal\commerce_order\Entity\OrderInterface;
+use Drupal\commerce_trustedshops\API\Review as TrustedShopsReview;
 use Drupal\commerce_trustedshops\Context;
+use Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolverInterface;
+use Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Language\LanguageInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Url;
-use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolverInterface;
-use Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolverInterface;
-use Drupal\commerce_trustedshops\API\Review as TrustedShopsReview;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides the invite review confirmation form.

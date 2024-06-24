@@ -3,9 +3,9 @@
 namespace Drupal\commerce_trustedshops\Plugin\views\field;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\views\Plugin\views\field\LinkBase;
 use Drupal\views\ResultRow;
-use Drupal\Core\Url;
 
 /**
  * Field handler to show a TrustedShops link to send a review invite on order.

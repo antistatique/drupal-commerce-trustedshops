@@ -3,10 +3,10 @@
 namespace Drupal\commerce_trustedshops\Entity;
 
 use Drupal\commerce_store\Entity\StoreInterface;
-use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 
 /**
  * Defines the TrustedShops-IDs entity class.

@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\commerce_trustedshops\Functional;
 
-use Drupal\Tests\commerce\Functional\CommerceBrowserTestBase;
 use Drupal\commerce_trustedshops\Entity\Shop;
+use Drupal\Tests\commerce\Functional\CommerceBrowserTestBase;
 use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
 /**

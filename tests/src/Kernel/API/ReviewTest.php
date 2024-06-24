@@ -6,8 +6,8 @@ use Drupal\commerce_trustedshops\API\Review as TrustedShopsReview;
 use Drupal\commerce_trustedshops\Event\AlterProductDataEvent;
 use Drupal\commerce_trustedshops\Event\TrustedShopsEvents;
 use Prophecy\Argument;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Prophecy\Prophet;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Tests the Shop entity.

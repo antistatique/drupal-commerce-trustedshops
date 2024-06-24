@@ -2,10 +2,10 @@
 
 namespace Drupal\Tests\commerce_trustedshops\Unit\Resolver;
 
+use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolver;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Tests\UnitTestCase;
-use Drupal\commerce_order\Entity\OrderInterface;
 
 /**
  * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolver

@@ -2,9 +2,9 @@
 
 namespace Drupal\commerce_trustedshops\Form;
 
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\Xss;
 
 /**
  * Configure Commerce TrustedShops settings form.
