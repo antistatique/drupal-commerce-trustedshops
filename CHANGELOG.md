@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Removed
-- drop tests support on Drupal <= 9.4
+- drop support on Drupal <= 9.x
 
 ### Fixed
 - fix deprecation compare markup between MarkupInterface objects and plain strings
