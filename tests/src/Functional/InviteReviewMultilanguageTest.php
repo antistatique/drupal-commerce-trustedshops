@@ -129,7 +129,7 @@ class InviteReviewMultilanguageTest extends OrderBrowserTestBase {
    * Test on an Order with a language which has no TrustedShop ID in that
    * same lang.
    */
-  public function testInviteReviewFormUnconfiguredShopLanguage() {
+  public function testInviteReviewFormNotConfiguredShopLanguage() {
     // Setup a language for the TrustedShops ID.
     $this->shop->set('langcode', 'fr');
     $this->shop->save();

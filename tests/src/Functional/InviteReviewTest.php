@@ -115,7 +115,7 @@ class InviteReviewTest extends OrderBrowserTestBase {
    *
    * Test on an un-configured/mis-configured TrustedShops API Credentials.
    */
-  public function testInviteReviewFormUnconfiguredCredential() {
+  public function testInviteReviewFormNotConfiguredCredential() {
     // When TrustedShops API credentials are empty, a warning should be shown.
     $config = \Drupal::configFactory()->getEditable('commerce_trustedshops.settings');
     $config->set('api.username', '');
@@ -133,7 +133,7 @@ class InviteReviewTest extends OrderBrowserTestBase {
    *
    * Tests on an Order which has no TrustedShop ID configured.
    */
-  public function testInviteReviewFormUnconfiguredShop() {
+  public function testInviteReviewFormNotConfiguredShop() {
     // Create another store which should not have a TrustedShop-IDs.
     // Used to ensure edge-case on our tests.
     $another_store = $this->createStore('Second store', 'second@example.com');

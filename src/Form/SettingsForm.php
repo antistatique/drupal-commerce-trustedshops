@@ -35,12 +35,12 @@ class SettingsForm extends ConfigFormBase {
 
     $form['mode'] = [
       '#type' => 'radios',
-      '#title' => $this->t('E nvironment'),
+      '#title' => $this->t('Environment'),
       '#options' => [
         1 => $this->t('Test (QA)'),
         0 => $this->t('Production'),
       ],
-      '#description' => $this->t('Use the Test/QA environment if you want to tests the module. Otherwhise, you risk to send review & emails to your end-user and potentialy badly collect your e-shop reviews..'),
+      '#description' => $this->t('Use the Test/QA environment if you want to tests the module. Otherwise, you risk to send review & emails to your end-user and potentially badly collect your e-shop reviews..'),
       '#default_value' => $config->get('test_mode') ?: 0,
     ];
 

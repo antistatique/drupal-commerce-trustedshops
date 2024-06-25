@@ -62,7 +62,7 @@ class Review {
    *
    * Attempts to trigger a review via the TrustedShops API. An exception may be
    * throw on error from the TrustedShops API.
-   * The e-mail language will use the TSID configured language.
+   * The email language will use the TSID configured language.
    *
    * @param string $email_template
    *   The email template to use.
@@ -123,7 +123,7 @@ class Review {
     $now = \DateTime::createFromFormat('U', time());
     $now->setTimezone(new \DateTimeZone('UTC'));
 
-    // The triggered e-mail will use the TSID configured language.
+    // The triggered email will use the TSID configured language.
     // TrustedShops does not support language overriding via any parameters.
     $this->trustedShops->post('shops/' . $shop->tsid->value . '/reviews/trigger.json', [
       'reviewCollectorRequest' => [
