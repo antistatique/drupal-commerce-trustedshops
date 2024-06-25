@@ -5,12 +5,14 @@ namespace Drupal\Tests\commerce_trustedshops\Unit\Resolver;
 use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolver;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\OrderLanguage\ChainOrderLanguageResolver
  *
  * @group commerce_trustedshops
+ * @group commerce_trustedshops_unit
  */
 class ChainOrderLanguageResolverTest extends UnitTestCase {
 
@@ -32,12 +34,16 @@ class ChainOrderLanguageResolverTest extends UnitTestCase {
   /**
    * Tests the resolver and priority.
    *
-   * ::covers addResolver
-   * ::covers getResolvers
-   * ::covers resolve.
+   * @covers ::addResolver
+   * @covers ::getResolvers
+   * @covers ::resolve.
    */
   public function testResolver() {
     $container = new ContainerBuilder();
+
+    $language = $this->getMockBuilder(LanguageInterface::class)
+      ->disableOriginalConstructor();
+    $language_mock = $language->getMock();
 
     $order_mock_builder = $this->getMockBuilder(OrderInterface::class)
       ->disableOriginalConstructor();
@@ -48,13 +54,14 @@ class ChainOrderLanguageResolverTest extends UnitTestCase {
 
     $first_resolver = $resolver_mock_builder->getMock();
     $first_resolver->expects($this->once())
-      ->method('resolve');
+      ->method('resolve')
+      ->willReturn(NULL);
     $container->set('commerce.first_resolver', $first_resolver);
 
     $second_resolver = $resolver_mock_builder->getMock();
     $second_resolver->expects($this->once())
       ->method('resolve')
-      ->willReturn('testLanguage');
+      ->willReturn($language_mock);
     $container->set('commerce.second_resolver', $second_resolver);
 
     $third_resolver = $resolver_mock_builder->getMock();
@@ -75,7 +82,7 @@ class ChainOrderLanguageResolverTest extends UnitTestCase {
     }
 
     $result = $this->resolver->resolve($order_mock);
-    $this->assertEquals('testLanguage', $result);
+    $this->assertEquals($language_mock, $result);
   }
 
 }

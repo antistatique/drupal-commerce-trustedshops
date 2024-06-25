@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - fix deprecation compare markup between MarkupInterface objects and plain strings
+- fix latests PHPStan complaints
 
 ### Added
 - add Drupal GitlabCI

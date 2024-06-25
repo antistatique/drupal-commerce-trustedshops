@@ -16,8 +16,9 @@ class ShopForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
-    parent::save($form, $form_state);
+    $result = parent::save($form, $form_state);
     $form_state->setRedirect('entity.commerce_trustedshops_shop.collection');
+    return $result;
   }
 
 }

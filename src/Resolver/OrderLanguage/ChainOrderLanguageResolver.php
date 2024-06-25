@@ -4,6 +4,7 @@ namespace Drupal\commerce_trustedshops\Resolver\OrderLanguage;
 
 use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce_trustedshops\Context;
+use Drupal\Core\Language\LanguageInterface;
 
 /**
  * Default implementation of the chain order language resolver.
@@ -44,16 +45,18 @@ class ChainOrderLanguageResolver implements ChainOrderLanguageResolverInterface 
   /**
    * {@inheritdoc}
    *
-   * @return \Drupal\Core\Language\LanguageInterface
+   * @return \Drupal\Core\Language\LanguageInterface|null
    *   The order language, when not existing, the website default language.
    */
-  public function resolve(OrderInterface $order, Context $context = NULL) {
+  public function resolve(OrderInterface $order, Context $context = NULL): ?LanguageInterface {
     foreach ($this->resolvers as $resolver) {
       $result = $resolver->resolve($order, $context);
       if ($result) {
         return $result;
       }
     }
+
+    return NULL;
   }
 
 }

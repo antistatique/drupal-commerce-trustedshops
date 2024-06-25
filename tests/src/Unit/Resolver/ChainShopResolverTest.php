@@ -10,6 +10,7 @@ use Drupal\Tests\UnitTestCase;
  * @coversDefaultClass \Drupal\commerce_trustedshops\Resolver\Shop\ChainShopResolver
  *
  * @group commerce_trustedshops
+ * @group commerce_trustedshops_unit
  */
 class ChainShopResolverTest extends UnitTestCase {
 
@@ -31,9 +32,9 @@ class ChainShopResolverTest extends UnitTestCase {
   /**
    * Tests the resolver and priority.
    *
-   * ::covers addResolver
-   * ::covers getResolvers
-   * ::covers resolve.
+   * @covers ::addResolver
+   * @covers ::getResolvers
+   * @covers ::resolve.
    */
   public function testResolver() {
     $container = new ContainerBuilder();
