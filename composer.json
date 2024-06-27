@@ -32,7 +32,7 @@
   "prefer-stable": true,
   "require": {
     "drupal/commerce": "^2.8",
-    "antistatique/trustedshops-php-sdk": "^1.0.0"
+    "antistatique/trustedshops-php-sdk": "^1.1.0"
   },
   "require-dev": {
       "drupal/coder": "^8.3.1"
