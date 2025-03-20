@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - fix obsolete docker-compose command in CIs
 
+### Removed
+- drop testing on Drupal 10.0, 10.1 & 10.2
+
 ## [3.0.1] - 2024-06-25
 ### Removed
 - drop support on Drupal <= 9.4
