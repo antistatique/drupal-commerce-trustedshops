@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - update antistatique/trustedshops-php-sdk (1.0.0 => 1.1.0)
 
+### Changed
+- upgrade Docker Database mariadb 10.3.8 -> 10.6
+
+### Fixed
+- fix obsolete docker-compose command in CIs
+
 ## [3.0.1] - 2024-06-25
 ### Removed
 - drop support on Drupal <= 9.4
