@@ -48,7 +48,7 @@ class ChainOrderLanguageResolver implements ChainOrderLanguageResolverInterface 
    * @return \Drupal\Core\Language\LanguageInterface|null
    *   The order language, when not existing, the website default language.
    */
-  public function resolve(OrderInterface $order, Context $context = NULL): ?LanguageInterface {
+  public function resolve(OrderInterface $order, ?Context $context = NULL): ?LanguageInterface {
     foreach ($this->resolvers as $resolver) {
       $result = $resolver->resolve($order, $context);
       if ($result) {

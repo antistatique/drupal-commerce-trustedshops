@@ -43,7 +43,7 @@ class ChainShopResolver implements ChainShopResolverInterface {
   /**
    * {@inheritdoc}
    */
-  public function resolve(Context $context = NULL) {
+  public function resolve(?Context $context = NULL) {
     foreach ($this->resolvers as $resolver) {
       $result = $resolver->resolve($context);
       if ($result) {

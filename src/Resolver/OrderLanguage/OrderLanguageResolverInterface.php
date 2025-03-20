@@ -22,6 +22,6 @@ interface OrderLanguageResolverInterface {
    *   The order language, if resolved. Otherwise NULL, indicating that the next
    *   resolver in the chain should be called.
    */
-  public function resolve(OrderInterface $order, Context $context = NULL);
+  public function resolve(OrderInterface $order, ?Context $context = NULL);
 
 }

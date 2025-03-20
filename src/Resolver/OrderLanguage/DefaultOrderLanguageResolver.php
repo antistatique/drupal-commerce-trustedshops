@@ -14,7 +14,7 @@ class DefaultOrderLanguageResolver implements OrderLanguageResolverInterface {
   /**
    * {@inheritdoc}
    */
-  public function resolve(OrderInterface $order, Context $context = NULL) {
+  public function resolve(OrderInterface $order, ?Context $context = NULL) {
     $field_name = 'langcode';
     if ($context && $context->hasData('field_name')) {
       $field_name = $context->getData('field_name');
