@@ -71,7 +71,7 @@ jobs:
 
     strategy:
       matrix:
-        drupal_version: ['10.3']
+        drupal_version: ['10.4']
         module: ['commerce_trustedshops']
 
     steps:

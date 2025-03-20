@@ -3,6 +3,7 @@
 namespace Drupal\Tests\commerce_trustedshops\Functional;
 
 use Drupal\commerce_trustedshops\Entity\Shop;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Tests\commerce_order\Functional\OrderBrowserTestBase;
 use Drupal\Tests\commerce_trustedshops\Traits\DeprecationSuppressionTrait;
 
@@ -41,13 +42,25 @@ class InviteReviewTest extends OrderBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'starterkit_theme';
+  protected $defaultTheme = 'stark';
 
   /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
     parent::setUp();
+
+    // Work around profile bug #3071142. Remove once 1.0 is required.
+    $user_form_display = EntityFormDisplay::load('user.user.default');
+    if (!$user_form_display) {
+      $user_form_display = EntityFormDisplay::create([
+        'targetEntityType' => 'user',
+        'bundle' => 'user',
+        'mode' => 'default',
+        'status' => TRUE,
+      ]);
+      $user_form_display->save();
+    }
 
     // Setup dummy TrustedShops Credentials API.
     $config = \Drupal::configFactory()->getEditable('commerce_trustedshops.settings');
