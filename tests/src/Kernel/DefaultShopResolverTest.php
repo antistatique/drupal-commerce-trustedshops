@@ -130,7 +130,7 @@ class DefaultShopResolverTest extends DrupalCommerceKernelTestBase {
    * @return array
    *   An array of each store/language variation.
    */
-  public function providerDefaultShopAndLanguage() {
+  public static function providerDefaultShopAndLanguage() {
     return [
       [1, new Language(['id' => 'en']), 1,
         'R9H9J8ETR1PBFYZ1564ODXCII6EU9ZRNRFI8SC',

@@ -3,7 +3,6 @@
 namespace Drupal\Tests\commerce_trustedshops\Functional;
 
 use Drupal\commerce_trustedshops\Entity\Shop;
-use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\language\Entity\ConfigurableLanguage;
@@ -54,18 +53,6 @@ class InviteReviewMultilanguageTest extends OrderBrowserTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-
-    // Work around profile bug #3071142. Remove once 1.0 is required.
-    $user_form_display = EntityFormDisplay::load('user.user.default');
-    if (!$user_form_display) {
-      $user_form_display = EntityFormDisplay::create([
-        'targetEntityType' => 'user',
-        'bundle' => 'user',
-        'mode' => 'default',
-        'status' => TRUE,
-      ]);
-      $user_form_display->save();
-    }
 
     // Add a second language.
     ConfigurableLanguage::create([
