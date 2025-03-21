@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.1.0] - 2025-03-21
 ### Added
 - add official support of drupal 10.4
 - add official support of drupal 11.1
@@ -94,7 +96,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a Views Link field "TrustedShops: Link to invite writing a review of Order" to be added on Order's views as operations.
 - Expose an "Invite to Review" form allowing triggering Review invitations by TrustedShops
 
-[Unreleased]: https://github.com/antistatique/drupal-commerce-trustedshops/compare/3.0.1...HEAD
+[Unreleased]: https://github.com/antistatique/drupal-commerce-trustedshops/compare/3.1.0...HEAD
+[3.1.0]: https://github.com/antistatique/drupal-commerce-trustedshops/compare/3.0.1...3.1.0
 [3.0.1]: https://github.com/antistatique/drupal-commerce-trustedshops/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/antistatique/drupal-commerce-trustedshops/compare/8.x-2.0...3.0.0
 [2.0.0]: https://github.com/antistatique/drupal-commerce-trustedshops/compare/8.x-2.0-rc1...8.x-2.0
