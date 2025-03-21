@@ -48,6 +48,7 @@ Commerce TrustedShops is available for both Drupal 8 & Drupal 9 & Drupal 10 !
 |    8.8.x    | 2.x                   | 2.8             |
 |     9.x     | 2.x                   | 2.33            |
 |    10.x     | 3.x                   | 2.33            |
+|    11.x     | 3.x                   | 3.0             |
 
 ## Dependencies
 

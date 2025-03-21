@@ -1,4 +1,4 @@
-ARG BASE_IMAGE_TAG=10.1
+ARG BASE_IMAGE_TAG=10.4
 FROM wengerk/drupal-for-contrib:${BASE_IMAGE_TAG}
 
 # Drupal Commerce 2.20+ requires bcmath extensions.
@@ -10,7 +10,7 @@ ENV COMPOSER_MEMORY_LIMIT=-1
 ENV SYMFONY_DEPRECATIONS_HELPER=disabled
 
 # Install Drupal Commerce as required by the module
-RUN composer require drupal/commerce:^2.39 'drupal/inline_entity_form:^1.0@RC'
+RUN composer require "drupal/commerce:^2.39||^3.0" 'drupal/inline_entity_form:^1.0@RC||^3.0@RC'
 
 # Install the TrustedShops PHP SDK as required by the module
 RUN composer require antistatique/trustedshops-php-sdk:^1.0.0
