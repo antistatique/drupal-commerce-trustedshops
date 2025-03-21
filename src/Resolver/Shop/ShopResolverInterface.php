@@ -19,6 +19,6 @@ interface ShopResolverInterface {
    *   The shop, if resolved. Otherwise NULL, indicating that the next
    *   resolver in the chain should be called.
    */
-  public function resolve(Context $context = NULL);
+  public function resolve(?Context $context = NULL);
 
 }

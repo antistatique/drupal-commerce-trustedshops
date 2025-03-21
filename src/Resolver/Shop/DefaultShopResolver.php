@@ -67,7 +67,7 @@ class DefaultShopResolver implements ShopResolverInterface {
   /**
    * {@inheritdoc}
    */
-  public function resolve(Context $context = NULL) {
+  public function resolve(?Context $context = NULL) {
     $query = $this->shopStorage
       ->getQuery()
       ->accessCheck(TRUE);

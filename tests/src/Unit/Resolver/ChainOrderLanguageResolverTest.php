@@ -36,7 +36,7 @@ class ChainOrderLanguageResolverTest extends UnitTestCase {
    *
    * @covers ::addResolver
    * @covers ::getResolvers
-   * @covers ::resolve.
+   * @covers ::resolve
    */
   public function testResolver() {
     $container = new ContainerBuilder();

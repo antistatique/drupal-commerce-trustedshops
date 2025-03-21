@@ -46,7 +46,7 @@ final class Context {
    * @param array $data
    *   The data.
    */
-  public function __construct(StoreInterface $store = NULL, LanguageInterface $language = NULL, array $data = []) {
+  public function __construct(?StoreInterface $store = NULL, ?LanguageInterface $language = NULL, array $data = []) {
     $this->store = $store;
     $this->language = $language;
     $this->data = $data;

@@ -109,7 +109,7 @@ class InviteReviewForm extends ConfirmFormBase {
    * @return \Drupal\Core\Access\AccessResult
    *   The access result.
    */
-  public function access(RouteMatchInterface $route_match, AccountInterface $account, OrderInterface $commerce_order = NULL) {
+  public function access(RouteMatchInterface $route_match, AccountInterface $account, ?OrderInterface $commerce_order = NULL) {
     // Confirms the user has the 'send invite review commerce trustedshops'.
     if (!$account->hasPermission('send invite review commerce trustedshops')) {
       return AccessResult::forbidden();
@@ -198,7 +198,7 @@ class InviteReviewForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, OrderInterface $commerce_order = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, ?OrderInterface $commerce_order = NULL) {
     $this->order = $commerce_order;
     $form = parent::buildForm($form, $form_state);
 

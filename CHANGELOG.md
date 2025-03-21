@@ -5,8 +5,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- add official support of drupal 10.4
+- add official support of drupal 11.1
+
 ### Security
 - update antistatique/trustedshops-php-sdk (1.0.0 => 1.1.0)
+
+### Changed
+- upgrade Docker Database mariadb 10.3.8 -> 10.6
+
+### Fixed
+- fix obsolete docker-compose command in CIs
+
+### Removed
+- drop testing on Drupal 10.0, 10.1 & 10.2
+- drop support of Drupal 9.5
 
 ## [3.0.1] - 2024-06-25
 ### Removed
