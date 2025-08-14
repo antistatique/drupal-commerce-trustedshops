@@ -12,14 +12,17 @@ jobs:
 
     strategy:
       matrix:
-        drupal_version: ['10.3', '10.4', '11.0', '11.1']
+        drupal_version: ['10.5', '11.0', '11.1']
         module: ['commerce_trustedshops']
         experimental: [ false ]
         include:
-          - drupal_version: '10.5'
+          - drupal_version: '10.6'
             module: 'commerce_trustedshops'
             experimental: true
-          - drupal_version: '11.2'
+         - drupal_version: '11.2'
+            module: 'commerce_trustedshops'
+            experimental: true
+          - drupal_version: '11.3'
             module: 'commerce_trustedshops'
             experimental: true
 
@@ -46,14 +49,17 @@ jobs:
 
     strategy:
       matrix:
-        drupal_version: ['10.3', '10.4', '11.0', '11.1']
+        drupal_version: ['10.5', '11.0', '11.1']
         module: [ 'commerce_trustedshops' ]
         experimental: [false]
         include:
-          - drupal_version: '10.5'
+          - drupal_version: '10.6'
             module: 'commerce_trustedshops'
             experimental: true
-          - drupal_version: '11.2'
+         - drupal_version: '11.2'
+            module: 'commerce_trustedshops'
+            experimental: true
+          - drupal_version: '11.3'
             module: 'commerce_trustedshops'
             experimental: true
 
@@ -83,7 +89,7 @@ jobs:
 
     strategy:
       matrix:
-        drupal_version: ['10.4']
+        drupal_version: ['10.5']
         module: ['commerce_trustedshops']
 
     steps:
